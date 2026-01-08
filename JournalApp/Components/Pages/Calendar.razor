@@ -1,0 +1,178 @@
+@page "/calendar"
+@inject IJournalService JournalService
+@using JournalApp.Models
+@inject NavigationManager NavigationManager
+@using System.Globalization
+@using JournalApp.Services
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <button class="btn btn-outline-secondary" @onclick="PrevMonth">&lt; Previous</button>
+    <h3>@currentMonth.ToString("MMMM yyyy")</h3>
+    <button class="btn btn-outline-secondary" @onclick="NextMonth">Next &gt;</button>
+</div>
+
+<div class="calendar-grid">
+    <div class="header">Sun</div>
+    <div class="header">Mon</div>
+    <div class="header">Tue</div>
+    <div class="header">Wed</div>
+    <div class="header">Thu</div>
+    <div class="header">Fri</div>
+    <div class="header">Sat</div>
+
+    @for (int i = 0; i < emptyDays; i++)
+    {
+        <div class="day empty"></div>
+    }
+
+    @for (int day = 1; day <= daysInMonth; day++)
+    {
+        var date = new DateTime(currentMonth.Year, currentMonth.Month, day);
+        var entry = GetEntryForDate(date);
+        var isToday = date.Date == DateTime.Today;
+        var moodClass = GetMoodClass(entry);
+
+        <div class="day @moodClass @(isToday ? "today" : "")" @onclick="@(() => OnDayClick(date, entry))">
+            <span class="day-number">@day</span>
+            @if (entry != null)
+            {
+                <span class="mood-icon">@entry.PrimaryMood.ToEmoji()</span>
+            }
+        </div>
+    }
+</div>
+
+<div class="mt-4 legend d-flex gap-3 justify-content-center">
+    <div class="d-flex align-items-center"><span class="legend-box positive"></span> Positive</div>
+    <div class="d-flex align-items-center"><span class="legend-box neutral"></span> Neutral</div>
+    <div class="d-flex align-items-center"><span class="legend-box negative"></span> Negative</div>
+    <div class="d-flex align-items-center"><span class="legend-box today-legend"></span> Today</div>
+</div>
+
+<style>
+    .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 10px;
+    }
+    .header {
+        font-weight: bold;
+        text-align: center;
+        padding: 5px;
+    }
+    .day {
+        aspect-ratio: 1;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        padding: 5px;
+        position: relative;
+        cursor: pointer;
+        background-color: #f8f9fa;
+        transition: transform 0.1s;
+    }
+    .day:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .day.empty {
+        background-color: transparent;
+        border: none;
+        cursor: default;
+    }
+    .day-number {
+        font-weight: bold;
+        font-size: 0.9rem;
+    }
+    .mood-icon {
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+        font-size: 1.2rem;
+    }
+    
+    /* Mood Colors */
+    .day.positive { background-color: #d1e7dd; border-color: #badbcc; } /* Green */
+    .day.neutral { background-color: #cff4fc; border-color: #bcdff1; } /* Blue */
+    .day.negative { background-color: #f8d7da; border-color: #f5c2c7; } /* Pink */
+
+    /* Today Highlight */
+    .day.today {
+        border: 2px solid #fd7e14; /* Orange */
+    }
+
+    /* Legend */
+    .legend-box {
+        width: 20px;
+        height: 20px;
+        border-radius: 4px;
+        margin-right: 5px;
+        border: 1px solid rgba(0,0,0,0.1);
+    }
+    .legend-box.positive { background-color: #d1e7dd; }
+    .legend-box.neutral { background-color: #cff4fc; }
+    .legend-box.negative { background-color: #f8d7da; }
+    .legend-box.today-legend { border: 2px solid #fd7e14; background-color: #f8f9fa; }
+
+</style>
+
+@code {
+    private DateTime currentMonth = DateTime.Today;
+    private int daysInMonth;
+    private int emptyDays;
+    private List<JournalEntry> entries = new();
+
+    protected override void OnInitialized()
+    {
+        LoadMonthData();
+    }
+
+    private void LoadMonthData()
+    {
+        daysInMonth = DateTime.DaysInMonth(currentMonth.Year, currentMonth.Month);
+        var firstDayOfMonth = new DateTime(currentMonth.Year, currentMonth.Month, 1);
+        emptyDays = (int)firstDayOfMonth.DayOfWeek;
+        entries = JournalService.GetEntries(); // Optimize later to filter by month if needed
+    }
+
+    private void PrevMonth()
+    {
+        currentMonth = currentMonth.AddMonths(-1);
+        LoadMonthData();
+    }
+
+    private void NextMonth()
+    {
+        currentMonth = currentMonth.AddMonths(1);
+        LoadMonthData();
+    }
+
+    private JournalEntry? GetEntryForDate(DateTime date)
+    {
+        return entries.FirstOrDefault(e => e.CreatedDate.Date == date.Date);
+    }
+
+    private string GetMoodClass(JournalEntry? entry)
+    {
+        if (entry == null) return "";
+        return entry.PrimaryMood switch
+        {
+            MoodType.Positive => "positive",
+            MoodType.Neutral => "neutral",
+            MoodType.Negative => "negative",
+            _ => ""
+        };
+    }
+
+    private void OnDayClick(DateTime date, JournalEntry? entry)
+    {
+        if (entry != null)
+        {
+            NavigationManager.NavigateTo($"/entry/{entry.Id}");
+        }
+        else
+        {
+            // Allow creating entry for past or today
+             NavigationManager.NavigateTo($"/entry?date={date:yyyy-MM-dd}");
+        }
+    }
+}

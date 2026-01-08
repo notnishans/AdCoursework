@@ -1,0 +1,150 @@
+@page "/"
+@inject IAnalyticsService AnalyticsService
+@inject IJournalService JournalService
+@using JournalApp.Models
+@using JournalApp.Services
+
+@inject NavigationManager NavigationManager
+
+<div class="mb-4">
+    <h1>Your Journal Dashboard</h1>
+    <p class="text-muted">Track your thoughts, moods, and consistency.</p>
+</div>
+
+<!-- Statistics Section -->
+<div class="row mb-4">
+    <div class="col-md-3 col-sm-6 mb-3">
+        <div class="card text-center h-100 border-primary">
+            <div class="card-body">
+                <h5 class="card-title text-primary"><span class="oi oi-book" aria-hidden="true"></span> Total Entries</h5>
+                <p class="card-text display-6">@totalEntries</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 mb-3">
+        <div class="card text-center h-100 border-success">
+            <div class="card-body">
+                <h5 class="card-title text-success"><span class="oi oi-fire" aria-hidden="true"></span> Current Streak</h5>
+                <p class="card-text display-6">@currentStreak <small class="fs-6 text-muted">days</small></p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 mb-3">
+        <div class="card text-center h-100 border-info">
+            <div class="card-body">
+                <h5 class="card-title text-info"><span class="oi oi-graph" aria-hidden="true"></span> Best Streak</h5>
+                <p class="card-text display-6">@bestStreak <small class="fs-6 text-muted">days</small></p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 mb-3">
+        <div class="card text-center h-100 border-warning">
+            <div class="card-body">
+                <h5 class="card-title text-warning"><span class="oi oi-align-left" aria-hidden="true"></span> Avg Words</h5>
+                <p class="card-text display-6">@avgWordCount</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Mood Distribution -->
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <div class="card-header bg-transparent">
+                <h5 class="mb-0">Mood Distribution</h5>
+            </div>
+            <div class="card-body">
+                @if (totalEntries > 0)
+                {
+                    @foreach (var mood in Enum.GetValues<MoodType>())
+                    {
+                        var percentage = AnalyticsService.GetMoodPercentage(mood);
+                        var count = moodDistribution.ContainsKey(mood) ? moodDistribution[mood] : 0;
+                        var colorClass = mood switch
+                        {
+                            MoodType.Positive => "bg-success",
+                            MoodType.Neutral => "bg-warning",
+                            MoodType.Negative => "bg-danger",
+                            _ => "bg-secondary"
+                        };
+
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span>@mood.ToEmoji() @mood</span>
+                                <span>@count (@percentage%)</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar @colorClass" role="progressbar" style="width: @percentage%" 
+                                     aria-valuenow="@percentage" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p class="text-muted text-center my-5">No mood data available yet.</p>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Entries -->
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+             <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Recent Entries</h5>
+                <a href="entries" class="btn btn-sm btn-outline-primary">View All</a>
+            </div>
+            <div class="card-body">
+                @if (recentEntries == null || !recentEntries.Any())
+                {
+                    <div class="text-center my-5">
+                        <p class="text-muted">No entries yet.</p>
+                        <a href="entry" class="btn btn-primary">Create First Entry</a>
+                    </div>
+                }
+                else
+                {
+                    <div class="list-group list-group-flush">
+                        @foreach (var entry in recentEntries)
+                        {
+                            <a href="entry/@entry.Id" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                <div>
+                                    <div class="fw-bold">@entry.Title</div>
+                                    <small class="text-muted">@entry.CreatedDate.ToShortDateString()</small>
+                                </div>
+                                <span class="fs-4">@entry.PrimaryMood.ToEmoji()</span>
+                            </a>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private int totalEntries;
+    private int currentStreak;
+    private int bestStreak;
+    private double avgWordCount;
+    private Dictionary<MoodType, int> moodDistribution = new();
+    private List<JournalEntry> recentEntries = new();
+
+    protected override void OnInitialized()
+    {
+        LoadData();
+    }
+
+    private void LoadData()
+    {
+        totalEntries = AnalyticsService.GetTotalEntries();
+        currentStreak = AnalyticsService.GetCurrentStreak();
+        bestStreak = AnalyticsService.GetLongestStreak();
+        avgWordCount = AnalyticsService.GetAverageWordCount();
+        moodDistribution = AnalyticsService.GetMoodDistribution();
+        
+        recentEntries = JournalService.GetEntries().Take(5).ToList();
+    }
+}

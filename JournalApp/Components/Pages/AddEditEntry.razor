@@ -1,0 +1,202 @@
+@page "/entry/{Id:guid?}"
+@using JournalApp.Services
+@using JournalApp.Models
+@inject IJournalService JournalService
+@inject NavigationManager NavigationManager
+
+<h3>@(Id == null ? "New Entry" : "Edit Entry")</h3>
+
+@if (ShowAlert)
+{
+    <div class="alert alert-danger">@AlertMessage</div>
+}
+
+<EditForm Model ='@currentEntry' OnValidSubmit="SaveEntry">
+    <DataAnnotationsValidator/>
+    <ValidationSummary/>
+
+
+    <div class="mb-3">
+        <label for="date" class="form-label">Date</label>
+        <InputDate id="date" @bind-Value="currentEntry.CreatedDate" class="form-control" disabled="@(Id != null)" />
+    </div>
+
+    <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <InputText id="title" @bind-Value="currentEntry.Title" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Primary Mood</label>
+        <div>
+            @foreach (var moodType in Enum.GetValues<MoodType>())
+            {
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="primaryMood" 
+                           checked="@(currentEntry.PrimaryMood == moodType)" 
+                           @onchange="@(() => currentEntry.PrimaryMood = moodType)" />
+                    <label class="form-check-label">@moodType</label>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Secondary Moods (Max 2)</label>
+         <div>
+            @foreach (var moodType in Enum.GetValues<MoodType>())
+            {
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" 
+                           checked="@(currentEntry.SecondaryMoods.Contains(moodType))" 
+                           @onchange="@(e => ToggleSecondaryMood(moodType, e))" />
+                    <label class="form-check-label">@moodType</label>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="tags" class="form-label">Tags</label>
+        <div class="input-group mb-2">
+            <input type="text" class="form-control" @bind="newTag" placeholder="Add a custom tag..." />
+            <button class="btn btn-outline-secondary" type="button" @onclick="@(() => AddTag(null))">Add</button>
+        </div>
+        
+        <div class="mb-2">
+            <small class="text-muted d-block mb-1">Suggestions:</small>
+            <div class="d-flex flex-wrap gap-1">
+                @foreach (var tag in PrebuiltTags)
+                {
+                    <span class="badge bg-light text-dark border" style="cursor: pointer" @onclick="@(() => AddTag(tag))">
+                        + @tag
+                    </span>
+                }
+            </div>
+        </div>
+
+        <div class="mt-2">
+            <strong>Selected:</strong>
+            @if (!currentEntry.Tags.Any())
+            {
+                <span class="text-muted fst-italic">None</span>
+            }
+            @foreach (var tag in currentEntry.Tags)
+            {
+                <span class="badge bg-primary me-1" style="cursor: pointer" @onclick="@(() => RemoveTag(tag))">
+                    @tag.Name &times;
+                </span>
+            }
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="content" class="form-label">Content</label>
+        <InputTextArea id="content" @bind-Value="currentEntry.Content" class="form-control" rows="10" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="button" class="btn btn-secondary" @onclick="Cancel">Cancel</button>
+    @if (Id != null)
+    {
+         <button type="button" class="btn btn-danger ms-2" @onclick="Delete">Delete</button>
+    }
+</EditForm>
+
+@code {
+    [Parameter]
+    public Guid? Id { get; set; }
+
+    [SupplyParameterFromQuery]
+    public DateTime? Date { get; set; }
+
+    private JournalEntry currentEntry = new();
+    private string newTag = "";
+    private bool ShowAlert = false;
+    private string AlertMessage = "";
+
+    private List<string> PrebuiltTags = new List<string> 
+    { 
+        "Work", "Career", "Studies", "Family", "Friends", "Relationships",
+        "Health", "Fitness", "Personal Growth", "Self-care", "Hobbies", "Travel", "Nature",
+        "Finance", "Spirituality", "Birthday", "Holiday", "Vacation", "Celebration", "Exercise",
+        "Reading", "Writing", "Cooking", "Meditation", "Yoga", "Music", "Shopping",
+        "Parenting", "Projects", "Planning", "Reflection"
+    };
+
+    protected override void OnInitialized()
+    {
+        if (Id != null)
+        {
+            var entry = JournalService.GetEntryById(Id.Value);
+            if (entry != null)
+            {
+                currentEntry = entry;
+            }
+        }
+        else if (Date != null)
+        {
+            currentEntry.CreatedDate = Date.Value;
+        }
+    }
+
+    private void ToggleSecondaryMood(MoodType mood, ChangeEventArgs e)
+    {
+        var isChecked = (bool)(e.Value ?? false);
+        if (isChecked)
+        {
+            if (currentEntry.SecondaryMoods.Count < 2)
+            {
+                currentEntry.SecondaryMoods.Add(mood);
+            }
+        }
+        else
+        {
+            currentEntry.SecondaryMoods.Remove(mood);
+        }
+    }
+
+    private void AddTag(string? tagName = null)
+    {
+        var tagToAdd = tagName ?? newTag;
+
+        if (!string.IsNullOrWhiteSpace(tagToAdd) && !currentEntry.Tags.Any(t => t.Name.Equals(tagToAdd, StringComparison.OrdinalIgnoreCase)))
+        {
+            currentEntry.Tags.Add(new Tag { Name = tagToAdd });
+            if (tagName == null) newTag = "";
+        }
+    }
+
+    private void RemoveTag(Tag tag)
+    {
+        currentEntry.Tags.Remove(tag);
+    }
+
+    private void SaveEntry()
+    {
+        try 
+        {
+            JournalService.SaveEntry(currentEntry);
+            NavigationManager.NavigateTo("/");
+        }
+        catch (InvalidOperationException ex)
+        {
+             ShowAlert = true;
+             AlertMessage = ex.Message;
+        }
+    }
+
+    private void Cancel()
+    {
+        NavigationManager.NavigateTo("/");
+    }
+
+    private void Delete()
+    {
+        if (Id != null)
+        {
+            JournalService.DeleteEntry(Id.Value);
+            NavigationManager.NavigateTo("/");
+        }
+    }
+}

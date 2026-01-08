@@ -1,0 +1,156 @@
+@page "/entries"
+@inject IJournalService JournalService
+@using JournalApp.Models
+@using JournalApp.Services
+
+@inject NavigationManager NavigationManager
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3>Journal Entries</h3>
+    <button class="btn btn-primary" @onclick="CreateNew">
+        <span class="oi oi-plus" aria-hidden="true"></span> New Entry
+    </button>
+</div>
+
+<div class="mb-4">
+    <div class="input-group">
+        <span class="input-group-text"><span class="bi bi-search"></span></span>
+        <input type="text" class="form-control" placeholder="Search title or content..." 
+               @bind="searchText" @bind:event="oninput" />
+    </div>
+</div>
+
+@if (entries == null)
+{
+    <p><em>Loading...</em></p>
+}
+else if (!FilteredEntries.Any())
+{
+    <div class="alert alert-info">
+        @if (string.IsNullOrWhiteSpace(searchText))
+        {
+            <span>No journal entries found. Start by creating one!</span>
+        }
+        else
+        {
+            <span>No entries found matching "<strong>@searchText</strong>".</span>
+        }
+    </div>
+}
+else
+{
+    <div class="timeline">
+        @foreach (var entry in FilteredEntries)
+        {
+            <div class="timeline-item" @onclick="@(() => EditEntry(entry.Id))">
+                <div class="timeline-date">
+                    <span class="day">@entry.CreatedDate.Day</span>
+                    <span class="month">@entry.CreatedDate.ToString("MMM")</span>
+                    <span class="year text-muted small">@entry.CreatedDate.Year</span>
+                </div>
+                <div class="timeline-content card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                             <h5 class="card-title mb-0">@entry.Title</h5>
+                             <span class="fs-4" title="@entry.PrimaryMood.ToString()">@entry.PrimaryMood.ToEmoji()</span>
+                        </div>
+                        
+                        <p class="card-text text-muted text-truncate-2">@GetPreview(entry.Content)</p>
+                        
+                        <div class="d-flex align-items-center flex-wrap gap-1">
+                            @foreach (var tag in entry.Tags)
+                            {
+                                <span class="badge bg-light text-dark border">@tag.Name</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+<style>
+    .timeline {
+        position: relative;
+        padding-left: 10px;
+    }
+    .timeline-item {
+        display: flex;
+        margin-bottom: 20px;
+        cursor: pointer;
+        transition: transform 0.1s;
+    }
+    .timeline-item:hover {
+        transform: translateX(5px);
+    }
+    .timeline-date {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-width: 60px;
+        margin-right: 15px;
+        padding-top: 5px;
+    }
+    .timeline-date .day {
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1;
+    }
+    .timeline-date .month {
+        font-weight: 500;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+    }
+    .timeline-content {
+        flex-grow: 1;
+        border-left: 4px solid #0d6efd; /* Accent color */
+    }
+    .text-truncate-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+</style>
+
+@code {
+    private List<JournalEntry>? entries;
+    private string searchText = "";
+
+    private IEnumerable<JournalEntry> FilteredEntries => 
+        entries == null ? Enumerable.Empty<JournalEntry>() :
+        string.IsNullOrWhiteSpace(searchText) 
+            ? entries 
+            : entries.Where(e => 
+                (e.Title?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                (e.Content?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false)
+            );
+
+    protected override void OnInitialized()
+    {
+        LoadEntries();
+    }
+
+    private void LoadEntries()
+    {
+        entries = JournalService.GetEntries();
+    }
+
+    private void CreateNew()
+    {
+        NavigationManager.NavigateTo("/entry");
+    }
+
+    private void EditEntry(Guid id)
+    {
+        NavigationManager.NavigateTo($"/entry/{id}");
+    }
+
+    private string GetPreview(string content)
+    {
+        if (string.IsNullOrWhiteSpace(content)) return "";
+        var plain = System.Text.RegularExpressions.Regex.Replace(content, "<.*?>", String.Empty); // Simple HTML strip if rich text
+        return plain.Length > 100 ? plain.Substring(0, 100) + "..." : plain;
+    }
+}
