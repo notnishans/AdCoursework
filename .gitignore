@@ -1,0 +1,32 @@
+# .NET
+bin/
+obj/
+*.user
+*.suo
+*.cache
+*.log
+*.tmp
+
+# Visual Studio
+.vs/
+.vscode/
+
+# MAUI
+*.apk
+*.aab
+*.ipa
+*.app
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+*.swp
+*.swo
+
+# Build outputs
+*.dll
+*.exe
+*.pdb
