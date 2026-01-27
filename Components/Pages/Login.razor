@@ -3,35 +3,35 @@
 @using JournalApp.Services
 
 @* [VIVA INFO]: This page handles User Input Collection and calls the Auth Service. *@
-<PageTitle>Login - Journal App</PageTitle>
+<PageTitle>Sign In - Reflecta</PageTitle>
 
 <div class="login-wrapper">
     <MudContainer MaxWidth="MaxWidth.Small" Class="pa-0">
         <MudCard Elevation="8" Class="rounded-lg login-card-premium overflow-hidden">
             <div class="login-banner">
-                <MudIcon Icon="@Icons.Material.Filled.MenuBook" Size="Size.Large" Color="Color.Inherit" Class="mb-2" />
-                <MudText Typo="Typo.h5" Color="Color.Inherit"><b>Journal App</b></MudText>
+                <MudIcon Icon="@Icons.Material.Filled.Book" Size="Size.Large" Color="Color.Inherit" Class="mb-2" />
+                <MudText Typo="Typo.h5" Color="Color.Inherit"><b>Reflecta</b></MudText>
             </div>
             
             <MudCardContent Class="pa-8">
-                <MudText Typo="Typo.h5" Align="Align.Center" GutterBottom="true"><b>Welcome Back</b></MudText>
-                <MudText Typo="Typo.body2" Align="Align.Center" Color="Color.Secondary" Class="mb-8">Sign in to continue your journey.</MudText>
+                <MudText Typo="Typo.h5" Align="Align.Center" GutterBottom="true"><b>Welcome back</b></MudText>
+                <MudText Typo="Typo.body2" Align="Align.Center" Color="Color.Secondary" Class="mb-8">Unlock your private space.</MudText>
                 
                 @* [FORM HANDLING]: Blazor's EditForm handles validation automatically. *@
                 <EditForm Model="loginModel" OnValidSubmit="HandleLogin">
                     <DataAnnotationsValidator />
                     
-                    <MudTextField @bind-Value="loginModel.Username" Label="Username" Variant="Variant.Outlined" 
+                    <MudTextField @bind-Value="loginModel.Username" Label="Account name" Variant="Variant.Outlined" 
                                   FullWidth="true" Class="mb-4" Adornment="Adornment.Start" 
                                   AdornmentIcon="@Icons.Material.Filled.Person" />
                                   
-                    <MudTextField @bind-Value="loginModel.Password" Label="Password" Variant="Variant.Outlined" 
+                    <MudTextField @bind-Value="loginModel.Password" Label="Access key" Variant="Variant.Outlined" 
                                   InputType="InputType.Password" FullWidth="true" Class="mb-4" 
                                   Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Lock" />
                     
                     <div class="d-flex align-center justify-space-between mb-6">
-                        <MudCheckBox @bind-Value="loginModel.RememberMe" Label="Remember me" Color="Color.Primary" Dense="true" />
-                        <MudLink Href="/forgot-password" Underline="Underline.None" Typo="Typo.body2">Forgot password?</MudLink>
+                        <MudCheckBox @bind-Value="loginModel.RememberMe" Label="Keep me signed in" Color="Color.Primary" Dense="true" />
+                        <MudLink Href="/forgot-password" Underline="Underline.None" Typo="Typo.body2">Need help?</MudLink>
                     </div>
                     
                     <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" 
@@ -39,17 +39,17 @@
                         @if (isLoading)
                         {
                             <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
-                            <MudText Class="ms-2">Signing in...</MudText>
+                            <MudText Class="ms-2">Opening your space...</MudText>
                         }
                         else
                         {
-                            <MudText>Sign In</MudText>
+                            <MudText>Enter Journal</MudText>
                         }
                     </MudButton>
                 </EditForm>
                 
                 <div class="mt-8 text-center">
-                    <MudText Typo="Typo.body2">Don't have an account? <MudLink Href="/register" Underline="Underline.Always"><b>Sign up</b></MudLink></MudText>
+                    <MudText Typo="Typo.body2">New here? <MudLink Href="/register" Underline="Underline.Always"><b>Create your journal</b></MudLink></MudText>
                 </div>
             </MudCardContent>
         </MudCard>

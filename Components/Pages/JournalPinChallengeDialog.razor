@@ -4,10 +4,10 @@
     <DialogContent>
         <div class="d-flex flex-column align-center pa-4">
             <MudIcon Icon="@Icons.Material.Filled.Lock" Color="Color.Warning" Size="Size.Large" Class="mb-4" />
-            <MudText Typo="Typo.h6" Class="fw-bold mb-2">Vault Access Required</MudText>
-            <MudText Typo="Typo.body2" Align="Align.Center" Class="opacity-70 mb-6">This journal is protected. Please enter the security PIN to unlock.</MudText>
+            <MudText Typo="Typo.h6" Class="fw-bold mb-2">Unlock Entry</MudText>
+            <MudText Typo="Typo.body2" Align="Align.Center" Class="opacity-70 mb-6">This entry is locked. Enter the PIN to continue.</MudText>
             
-            <MudTextField @bind-Value="inputPin" Label="Security PIN" Variant="Variant.Outlined" 
+            <MudTextField @bind-Value="inputPin" Label="Entry PIN" Variant="Variant.Outlined" 
                           InputType="InputType.Password" MaxLength="6" FullWidth="true" 
                           AutoFocus="true" Class="mb-4" OnKeyUp="HandleKeyUp" />
             
@@ -18,8 +18,8 @@
         </div>
     </DialogContent>
     <DialogActions>
-        <MudButton OnClick="Cancel" Variant="Variant.Text" Class="px-6">Cancel</MudButton>
-        <MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="Verify" Class="px-8 rounded-pill">Unlock</MudButton>
+        <MudButton OnClick="Cancel" Variant="Variant.Text" Class="px-6">Back</MudButton>
+        <MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="Verify" Class="px-8 rounded-pill">Unlock Entry</MudButton>
     </DialogActions>
 </MudDialog>
 
@@ -40,7 +40,7 @@
         }
         else
         {
-            error = "Incorrect PIN. Access denied.";
+            error = "PIN didn’t match. Try again.";
             inputPin = "";
         }
     }

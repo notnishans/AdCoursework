@@ -15,20 +15,20 @@
 @inject ISnackbar Snackbar
 @inject IDialogService DialogService
 
-<PageTitle>@(IsEditMode ? "Edit Entry" : "Create Entry") - Journal App</PageTitle>
+<PageTitle>@(IsEditMode ? "Edit Reflection" : "New Reflection") - Reflecta</PageTitle>
 
 <MudContainer MaxWidth="MaxWidth.Large" Class="mt-4 mb-12 animate-fade-in">
     <div class="editor-canvas glass rounded-xxl pa-8 pa-md-12">
 @* [VIVA INFO]: Uses a 'Dynamic Layout' that changes based on 'IsEditMode'. *@
         <div class="d-flex align-center justify-space-between mb-10">
             <div>
-                <MudText Typo="Typo.h3" Class="fw-extra-bold primary-gradient-text">@(IsEditMode ? "Refine Your Journey" : "Vibrant Writing")</MudText>
-                <MudText Typo="Typo.h6" Class="secondary-text opacity-60">@(IsEditMode ? "Polishing your brilliant thoughts." : "Spark a new memory and let it shine.")</MudText>
+                <MudText Typo="Typo.h3" Class="fw-extra-bold primary-gradient-text">@(IsEditMode ? "Polish your reflection" : "Write today’s reflection")</MudText>
+                <MudText Typo="Typo.h6" Class="secondary-text opacity-60">@(IsEditMode ? "Make careful edits and save when ready." : "A calm space for your thoughts.")</MudText>
             </div>
             <div class="d-flex gap-2">
-                <MudButton Variant="Variant.Outlined" Color="Color.Primary" OnClick="Cancel" Class="rounded-pill px-6">Cancel</MudButton>
+                <MudButton Variant="Variant.Outlined" Color="Color.Primary" OnClick="Cancel" Class="rounded-pill px-6">Discard</MudButton>
                 <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" OnClick="HandleValidSubmit" Class="rounded-pill px-10 py-3 shadow-primary glow-button">
-                    @(IsEditMode ? "Sync Changes" : "Save Reflection")
+                    @(IsEditMode ? "Save Updates" : "Save Journal")
                 </MudButton>
             </div>
         </div>
@@ -47,12 +47,12 @@
                 <MudItem xs="12" md="8">
                     <div class="focused-writing-area">
                         <div class="d-flex align-center justify-space-between mb-2">
-                            <input @bind="entry.Title" placeholder="Give your journey a title..." class="title-h1-input" style="flex: 1;" />
+                            <input @bind="entry.Title" placeholder="Add a short title..." class="title-h1-input" style="flex: 1;" />
                             <div class="d-flex align-center gap-2 ml-4">
-                                <MudCheckBox @bind-Value="isProtected" Label="Vault PIN" Color="Color.Primary" Dense="true" T="bool" />
+                                <MudCheckBox @bind-Value="isProtected" Label="Lock with PIN" Color="Color.Primary" Dense="true" T="bool" />
                                 @if (isProtected)
                                 {
-                                    <MudTextField @bind-Value="entry.Pin" Label="PIN" Variant="Variant.Outlined" Margin="Margin.Dense" InputType="InputType.Text" MaxLength="6" Style="width: 100px; background: rgba(255,255,255,0.05);" Placeholder="4-6" />
+                                    <MudTextField @bind-Value="entry.Pin" Label="PIN" Variant="Variant.Outlined" Margin="Margin.Dense" InputType="InputType.Text" MaxLength="6" Style="width: 100px; background: rgba(255,255,255,0.05);" Placeholder="4–6" />
                                 }
                             </div>
                         </div>
@@ -86,7 +86,7 @@
                                 <textarea id="contentEditor" 
                                           @bind="entry.Content" 
                                           @oninput="@((e) => entry.Content = e.Value?.ToString() ?? "")"
-                                          placeholder="The canvas is yours..."
+                                          placeholder="Write freely..."
                                           class="zen-textarea pa-8" />
                             }
                             
@@ -112,7 +112,7 @@
                         <div class="sidebar-card glass-inner rounded-xl pa-6 border-light">
                             <div class="d-flex align-center mb-4 gap-2">
                                 <MudIcon Icon="@Icons.Material.Filled.SentimentSatisfied" Color="Color.Primary" Size="Size.Small" />
-                                <MudText Typo="Typo.subtitle2" Class="fw-bold uppercase-tracking">Primary Mood (Required)</MudText>
+                                <MudText Typo="Typo.subtitle2" Class="fw-bold uppercase-tracking">Primary mood</MudText>
                             </div>
                             <MudSelect T="string" @bind-Value="entry.PrimaryMood" Variant="Variant.Outlined" 
                                        AnchorOrigin="Origin.BottomCenter" Class="rounded-lg bg-surface mb-6"
@@ -125,7 +125,7 @@
 
                             <div class="d-flex align-center mb-4 gap-2">
                                 <MudIcon Icon="@Icons.Material.Filled.AddReaction" Color="Color.Secondary" Size="Size.Small" />
-                                <MudText Typo="Typo.subtitle2" Class="fw-bold uppercase-tracking">Secondary Moods (Optional)</MudText>
+                                <MudText Typo="Typo.subtitle2" Class="fw-bold uppercase-tracking">Additional moods</MudText>
                             </div>
                             <MudGrid Spacing="2">
                                 <MudItem xs="6">
@@ -152,22 +152,22 @@
                         <div class="sidebar-card glass-inner rounded-xl pa-6 border-light">
                             <div class="d-flex align-center mb-4 gap-2">
                                 <MudIcon Icon="@Icons.Material.Filled.Event" Color="Color.Primary" Size="Size.Small" />
-                                <MudText Typo="Typo.subtitle2" Class="fw-bold uppercase-tracking">Select Date</MudText>
+                                <MudText Typo="Typo.subtitle2" Class="fw-bold uppercase-tracking">Entry date</MudText>
                             </div>
                             <MudDatePicker @bind-Date="entry._entryDate" Variant="Variant.Outlined" Class="rounded-lg bg-surface" Disabled="!IsEditMode" ReadOnly="!IsEditMode" />
                             @if (!IsEditMode)
                             {
-                                <MudText Typo="Typo.caption" Class="mt-2 d-block opacity-60">New reflections are recorded for today.</MudText>
+                                <MudText Typo="Typo.caption" Class="mt-2 d-block opacity-60">New entries default to today.</MudText>
                             }
                         </div>
 
                         <div class="sidebar-card glass-inner rounded-xl pa-6 border-light">
                             <div class="d-flex align-center mb-4 gap-2">
                                 <MudIcon Icon="@Icons.Material.Filled.Tag" Color="Color.Primary" Size="Size.Small" />
-                                <MudText Typo="Typo.subtitle2" Class="fw-bold uppercase-tracking">Tags</MudText>
+                                <MudText Typo="Typo.subtitle2" Class="fw-bold uppercase-tracking">Themes</MudText>
                             </div>
                             <div class="tag-field mb-4">
-                                <MudTextField T="string" Placeholder="Add custom tag..." 
+                                <MudTextField T="string" Placeholder="Add a theme..." 
                                                Variant="Variant.Text" Immediate="true" 
                                                @onkeyup="HandleTagKeyUp" @bind-Value="newTag" 
                                                Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Add" />
@@ -182,7 +182,7 @@
                                 }
                             </div>
                             <MudDivider Class="my-4 opacity-5" />
-                            <MudText Typo="Typo.caption" Class="mb-2 d-block opacity-60">Suggested:</MudText>
+                            <MudText Typo="Typo.caption" Class="mb-2 d-block opacity-60">Quick picks:</MudText>
                             <div class="d-flex flex-wrap gap-1">
                                 @foreach (var tag in TagDefinitions.GetAllPreBuiltTags().Take(8))
                                 {
@@ -198,7 +198,7 @@
                         {
                             <MudButton Variant="Variant.Text" Color="Color.Error" StartIcon="@Icons.Material.Filled.DeleteOutline" 
                                        OnClick="ConfirmDelete" FullWidth="true" Class="mt-4 opacity-60 hover-opacity-100">
-                                Delete Reflection
+                                Delete Entry
                             </MudButton>
                         }
                     </MudStack>
@@ -256,21 +256,24 @@
     .zen-textarea {
         width: 100%;
         min-height: 500px;
-        background: transparent;
-        border: none;
+        background: rgba(var(--mud-palette-surface-rgb), 0.55);
+        border: 1px solid rgba(var(--mud-palette-divider-rgb), 0.08);
         outline: none;
         font-size: 1.15rem;
-        line-height: 1.7;
+        line-height: 1.75;
         color: var(--mud-palette-text-primary);
+        caret-color: var(--mud-palette-primary);
         font-family: 'Georgia', serif;
         resize: vertical;
+        border-radius: 16px;
     }
-    .zen-textarea::placeholder { opacity: 0.2; }
+    .zen-textarea::placeholder { color: rgba(var(--mud-palette-text-secondary-rgb), 0.55); }
 
     .markdown-preview-area {
         min-height: 500px;
         font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-        line-height: 1.7;
+        line-height: 1.75;
+        color: var(--mud-palette-text-primary);
     }
 
     .border-top-light { border-top: 1px solid rgba(var(--mud-palette-divider-rgb), 0.05); }

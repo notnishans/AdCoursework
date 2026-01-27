@@ -5,7 +5,7 @@
 @* [VIVA INFO]: The Calendar component demonstrates 'Advanced UX'. 
    It maps database entries to a visual grid representing time.
 *@
-<PageTitle>Calendar - Journal App</PageTitle>
+<PageTitle>Memory Calendar - Reflecta</PageTitle>
 
 <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-8 mb-12">
     @if (!string.IsNullOrEmpty(errorMessage))
@@ -17,13 +17,13 @@
 
     <div class="d-flex align-center justify-space-between mb-8 animate-fade-in">
         <div>
-            <MudText Typo="Typo.h3" Class="fw-bold primary-gradient-text">Journal Calendar</MudText>
-            <MudText Typo="Typo.h6" Color="Color.Secondary" Class="mt-1 opacity-75">Travel through your past reflections and moods.</MudText>
+            <MudText Typo="Typo.h3" Class="fw-bold primary-gradient-text">Memory Calendar</MudText>
+            <MudText Typo="Typo.h6" Color="Color.Secondary" Class="mt-1 opacity-75">Browse reflections by day and mood.</MudText>
         </div>
         <div class="d-flex gap-2">
-            <MudButton Variant="Variant.Outlined" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Today" OnClick="() => currentDate = DateTime.Today" Class="rounded-pill px-6">Today</MudButton>
-            <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" Size="Size.Large" OnClick='(() => Navigation.NavigateTo("/create-entry"))' Class="rounded-pill px-8 shadow-lg hover-scale">
-                New Entry
+            <MudButton Variant="Variant.Outlined" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Today" OnClick="() => currentDate = DateTime.Today" Class="rounded-pill px-6">Jump to Today</MudButton>
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.EditNote" Size="Size.Large" OnClick='(() => Navigation.NavigateTo("/create-entry"))' Class="rounded-pill px-8 shadow-lg hover-scale">
+                Write Reflection
             </MudButton>
         </div>
     </div>
@@ -72,9 +72,9 @@
                 </div>
                 
                 <div class="calendar-legend mt-10 pt-8 border-t border-opacity-5">
-                    <div class="legend-item"><div class="legend-dot status-positive"></div><span>Positive</span></div>
+                    <div class="legend-item"><div class="legend-dot status-positive"></div><span>Bright</span></div>
                     <div class="legend-item"><div class="legend-dot status-neutral"></div><span>Neutral</span></div>
-                    <div class="legend-item"><div class="legend-dot status-negative"></div><span>Negative</span></div>
+                    <div class="legend-item"><div class="legend-dot status-negative"></div><span>Heavy</span></div>
                     <div class="legend-item"><div class="legend-pill-today"></div><span>Today</span></div>
                 </div>
             </MudPaper>
@@ -93,7 +93,7 @@
                                 </div>
                                 <div class="header-content">
                                     <MudText Typo="Typo.h4" Class="fw-extra-bold">@selectedDate.Value.ToString("dddd")</MudText>
-                                    <MudText Typo="Typo.subtitle1" Color="Color.Secondary" Class="opacity-60">@(selectedEntry != null ? "Your Reflection" : "A Blank Page")</MudText>
+                                    <MudText Typo="Typo.subtitle1" Color="Color.Secondary" Class="opacity-60">@(selectedEntry != null ? "Entry details" : "No entry yet")</MudText>
                                 </div>
                             </div>
 
@@ -135,7 +135,7 @@
                                                Size="Size.Large"
                                                OnClick="() => EditEntry(selectedEntry.Id)" 
                                                Class="rounded-xl py-4 shadow-primary hover-lift">
-                                        Modify Reflection
+                                        Edit Entry
                                     </MudButton>
                                 </div>
                             }
@@ -146,8 +146,8 @@
                                         <div class="blob-animation"></div>
                                         <MudIcon Icon="@Icons.Material.Filled.AutoStories" Class="anchor-icon" />
                                     </div>
-                                    <MudText Typo="Typo.h5" Class="fw-bold mb-3">Quiet Moments</MudText>
-                                    <MudText Typo="Typo.body1" Color="Color.Secondary" Class="mb-10 opacity-70">This day is waiting for your story. Capture your thoughts and feelings now.</MudText>
+                                    <MudText Typo="Typo.h5" Class="fw-bold mb-3">Quiet day</MudText>
+                                    <MudText Typo="Typo.body1" Color="Color.Secondary" Class="mb-10 opacity-70">No entry yet. Add a short reflection for this date.</MudText>
                                     <MudButton Variant="Variant.Filled" 
                                                Color="Color.Primary" 
                                                FullWidth="true"
@@ -155,7 +155,7 @@
                                                StartIcon="@Icons.Material.Filled.Create" 
                                                OnClick="() => CreateEntryForDate(selectedDate.Value)" 
                                                Class="rounded-xl py-4 shadow-primary hover-lift">
-                                        Start Reflection
+                                        Write for this day
                                     </MudButton>
                                 </div>
                             }
@@ -169,8 +169,8 @@
                         <div class="pulse-ring mb-8">
                             <MudIcon Icon="@Icons.Material.Filled.CalendarMonth" Size="Size.Large" Color="Color.Primary" />
                         </div>
-                        <MudText Typo="Typo.h5" Class="fw-extra-bold mb-3 primary-text">Choose a Day</MudText>
-                        <MudText Typo="Typo.body1" Color="Color.Secondary" Class="opacity-60 max-w-xs mx-auto">Click any date on the calendar to revisit your memories or begin a new journey.</MudText>
+                        <MudText Typo="Typo.h5" Class="fw-extra-bold mb-3 primary-text">Select a date</MudText>
+                        <MudText Typo="Typo.body1" Color="Color.Secondary" Class="opacity-60 max-w-xs mx-auto">Pick a day to view entries or start a new reflection.</MudText>
                     </MudPaper>
                 }
             </div>
@@ -186,7 +186,7 @@
     .secondary-text { color: var(--mud-palette-text-secondary); }
 
     .primary-gradient-text {
-        background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+        background: linear-gradient(135deg, #6B7FD1 0%, #86C5C2 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
@@ -267,9 +267,9 @@
         border-radius: 1.25rem;
         opacity: 0.08;
     }
-    .mood-glow.positive { background: #10b981; }
-    .mood-glow.neutral { background: #3b82f6; }
-    .mood-glow.negative { background: #ef4444; }
+    .mood-glow.positive { background: #6BBF9E; }
+    .mood-glow.neutral { background: #8CA9E8; }
+    .mood-glow.negative { background: #E47C8B; }
 
     .entry-indicator-premium {
         position: absolute;
@@ -281,9 +281,9 @@
         align-items: center;
         justify-content: center;
     }
-    .entry-indicator-premium.positive { background: #10b981; box-shadow: 0 0 10px #10b981; }
-    .entry-indicator-premium.neutral { background: #3b82f6; box-shadow: 0 0 10px #3b82f6; }
-    .entry-indicator-premium.negative { background: #ef4444; box-shadow: 0 0 10px #ef4444; }
+    .entry-indicator-premium.positive { background: #6BBF9E; box-shadow: 0 0 10px #6BBF9E; }
+    .entry-indicator-premium.neutral { background: #8CA9E8; box-shadow: 0 0 10px #8CA9E8; }
+    .entry-indicator-premium.negative { background: #E47C8B; box-shadow: 0 0 10px #E47C8B; }
 
     .entry-emoji-float {
         position: absolute;
@@ -302,13 +302,13 @@
     }
     .legend-item { display: flex; align-items: center; gap: 0.75rem; font-size: 0.8rem; font-weight: 700; color: var(--mud-palette-text-secondary); }
     .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
-    .legend-dot.status-positive { background: #10b981; }
-    .legend-dot.status-neutral { background: #3b82f6; }
-    .legend-dot.status-negative { background: #ef4444; }
+    .legend-dot.status-positive { background: #6BBF9E; }
+    .legend-dot.status-neutral { background: #8CA9E8; }
+    .legend-dot.status-negative { background: #E47C8B; }
     .legend-pill-today { width: 14px; height: 14px; border-radius: 4px; border: 2.5px solid var(--mud-palette-primary); }
 
     .date-badge-premium {
-        background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        background: linear-gradient(135deg, #6B7FD1 0%, #86C5C2 100%);
         color: white;
         padding: 1rem;
         border-radius: 1.25rem;
@@ -316,7 +316,7 @@
         flex-direction: column;
         align-items: center;
         min-width: 75px;
-        box-shadow: 0 8px 16px -4px rgba(79, 70, 229, 0.4);
+        box-shadow: 0 8px 16px -4px rgba(107, 127, 209, 0.35);
     }
     .date-badge-premium .month { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; opacity: 0.8; margin-bottom: 2px; }
     .date-badge-premium .day { font-size: 1.75rem; font-weight: 900; line-height: 1; }
@@ -331,9 +331,9 @@
         font-size: 0.9rem;
         box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
     }
-    .mood-chip-premium.positive { background: rgba(16, 185, 129, 0.1); color: #059669; }
-    .mood-chip-premium.neutral { background: rgba(59, 130, 246, 0.1); color: #2563eb; }
-    .mood-chip-premium.negative { background: rgba(239, 68, 68, 0.1); color: #dc2626; }
+    .mood-chip-premium.positive { background: rgba(107, 191, 158, 0.12); color: #4E9E7D; }
+    .mood-chip-premium.neutral { background: rgba(140, 169, 232, 0.12); color: #6A86D6; }
+    .mood-chip-premium.negative { background: rgba(228, 124, 139, 0.12); color: #C86778; }
 
     .stat-pill {
         display: flex;

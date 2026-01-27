@@ -5,7 +5,7 @@
 @* [VIVA INFO]: This page handles 'Data Querying'. 
    It allows users to search, filter, and paginate through their entire journal history.
 *@
-<PageTitle>My Entries - Journal App</PageTitle>
+<PageTitle>Journal Library - Reflecta</PageTitle>
 
 <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-8 mb-12">
     @if (!string.IsNullOrEmpty(errorMessage))
@@ -17,11 +17,11 @@
 
     <div class="d-flex align-center justify-space-between mb-8 animate-fade-in">
         <div>
-            <MudText Typo="Typo.h3" Class="fw-bold peace-text mb-2">Your Captured Sparks ✨</MudText>
-            <MudText Typo="Typo.h6" Class="secondary-text opacity-75">A timeline of your growth, memories, and brilliant ideas.</MudText>
+            <MudText Typo="Typo.h3" Class="fw-bold peace-text mb-2">Journal Library</MudText>
+            <MudText Typo="Typo.h6" Class="secondary-text opacity-75">Browse, filter, and revisit every reflection you’ve saved.</MudText>
         </div>
-        <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" Size="Size.Large" OnClick='(() => Navigation.NavigateTo("/create-entry"))' Class="rounded-pill px-8 py-3 shadow-lg hover-scale">
-            New Entry
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.EditNote" Size="Size.Large" OnClick='(() => Navigation.NavigateTo("/create-entry"))' Class="rounded-pill px-8 py-3 shadow-lg hover-scale">
+            Write Reflection
         </MudButton>
     </div>
 
@@ -29,7 +29,7 @@
     <MudPaper Elevation="0" Class="pa-6 rounded-xl mb-10 border-none shadow-md glass-panel" Style="background: var(--mud-palette-surface);">
         <MudGrid Spacing="3" Class="align-center">
             <MudItem xs="12" md="6">
-                <MudTextField @bind-Value="searchTerm" Label="Search reflections" Placeholder="Describe what you're looking for..." 
+                <MudTextField @bind-Value="searchTerm" Label="Search notes" Placeholder="Type a keyword or tag..." 
                                Variant="Variant.Outlined" Adornment="Adornment.Start" 
                                AdornmentIcon="@Icons.Material.Filled.Search" OnKeyUp="HandleSearchKeyUp" 
                                Immediate="true" Class="rounded-xl" />
@@ -37,7 +37,7 @@
             <MudItem xs="12" md="6" Class="d-flex align-center gap-3 justify-end-md">
                 <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="SearchEntries" Class="rounded-pill px-8 py-2 shadow-primary">Search</MudButton>
                 <MudButton Variant="Variant.Outlined" Color="Color.Primary" OnClick="ToggleFilters" StartIcon="@(showFilters ? Icons.Material.Filled.FilterListOff : Icons.Material.Filled.FilterList)" Class="rounded-pill px-6 py-2">
-                    Advanced Filters
+                    Refine Filters
                 </MudButton>
                 @if (filterStartDate.HasValue || filterEndDate.HasValue || !string.IsNullOrEmpty(selectedMood) || !string.IsNullOrEmpty(selectedTag))
                 {
@@ -51,14 +51,14 @@
                     <MudDivider Class="my-4 opacity-10" />
                     <MudGrid Spacing="3">
                         <MudItem xs="12" sm="6" md="3">
-                            <MudDatePicker @bind-Date="filterStartDate" Label="From Date" Variant="Variant.Outlined" Class="bg-surface-dark rounded-lg" />
+                            <MudDatePicker @bind-Date="filterStartDate" Label="Start date" Variant="Variant.Outlined" Class="bg-surface-dark rounded-lg" />
                         </MudItem>
                         <MudItem xs="12" sm="6" md="3">
-                            <MudDatePicker @bind-Date="filterEndDate" Label="To Date" Variant="Variant.Outlined" Class="bg-surface-dark rounded-lg" />
+                            <MudDatePicker @bind-Date="filterEndDate" Label="End date" Variant="Variant.Outlined" Class="bg-surface-dark rounded-lg" />
                         </MudItem>
                         <MudItem xs="12" sm="6" md="3">
-                            <MudSelect T="string" @bind-Value="selectedMood" Label="Mood Category" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter" Class="bg-surface-dark rounded-lg">
-                                <MudSelectItem Value="@("")">All Moods</MudSelectItem>
+                            <MudSelect T="string" @bind-Value="selectedMood" Label="Mood" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter" Class="bg-surface-dark rounded-lg">
+                                <MudSelectItem Value="@("")">All moods</MudSelectItem>
                                 @foreach (var mood in MoodDefinitions.GetAllMoods())
                                 {
                                     <MudSelectItem Value="@mood">@mood</MudSelectItem>
@@ -66,8 +66,8 @@
                             </MudSelect>
                         </MudItem>
                         <MudItem xs="12" sm="6" md="3">
-                            <MudSelect T="string" @bind-Value="selectedTag" Label="Associated Tag" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter" Class="bg-surface-dark rounded-lg">
-                                <MudSelectItem Value="@("")">All Tags</MudSelectItem>
+                            <MudSelect T="string" @bind-Value="selectedTag" Label="Theme" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter" Class="bg-surface-dark rounded-lg">
+                                <MudSelectItem Value="@("")">All themes</MudSelectItem>
                                 @foreach (var tag in TagDefinitions.GetAllPreBuiltTags())
                                 {
                                     <MudSelectItem Value="@tag">@tag</MudSelectItem>
@@ -75,7 +75,7 @@
                             </MudSelect>
                         </MudItem>
                         <MudItem xs="12" Class="d-flex justify-end pt-2">
-                            <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="ApplyAllFilters" Class="rounded-pill px-8">Apply Advanced Filters</MudButton>
+                            <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="ApplyAllFilters" Class="rounded-pill px-8">Apply Filters</MudButton>
                         </MudItem>
                     </MudGrid>
                 </MudItem>
@@ -134,7 +134,7 @@
                             }
                             else
                             {
-                                <MudText Typo="Typo.body2" Color="Color.Warning" Class="opacity-75 italic">✨ Encrypted in your personal vault. Click to unlock. ✨</MudText>
+                                <MudText Typo="Typo.body2" Color="Color.Warning" Class="opacity-75 italic">Locked entry. Tap to unlock.</MudText>
                             }
                         </div>
 
@@ -175,9 +175,9 @@
             <div class="empty-state-visual">
                 <MudIcon Icon="@Icons.Material.Filled.SearchOff" />
             </div>
-            <MudText Typo="Typo.h4" Class="fw-bold mt-6 mb-2">No matching reflections</MudText>
-            <MudText Typo="Typo.h6" Color="Color.Secondary" Class="mb-8 opacity-75">We couldn't find any entries matching your criteria. Try adjusting your filters or search terms.</MudText>
-            <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="ClearFilters" Size="Size.Large" Class="rounded-pill px-8">Clear All Filters</MudButton>
+            <MudText Typo="Typo.h4" Class="fw-bold mt-6 mb-2">No entries found</MudText>
+            <MudText Typo="Typo.h6" Color="Color.Secondary" Class="mb-8 opacity-75">Try adjusting your search or filters to see results.</MudText>
+            <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="ClearFilters" Size="Size.Large" Class="rounded-pill px-8">Reset Filters</MudButton>
         </div>
     }
 </MudContainer>
@@ -235,8 +235,8 @@
         position: absolute;
         bottom: -4px;
         right: -4px;
-        background: #1A1F36;
-        border: 2px solid #FFD700;
+        background: #1E2633;
+        border: 2px solid #E9B86F;
         border-radius: 50%;
         width: 24px;
         height: 24px;

@@ -17,7 +17,7 @@
 <MudLayout>
     <MudAppBar Elevation="0" Class="glass-appbar px-4 py-2">
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" Class="hover-rotate" />
-        <MudText Typo="Typo.h5" Class="title-gradient fw-extra-bold ml-2"> JournalApp</MudText>
+        <MudText Typo="Typo.h5" Class="title-gradient fw-extra-bold ml-2">Reflecta</MudText>
         <MudSpacer />
         @if (AuthState.IsAuthenticated)
         {
@@ -34,9 +34,9 @@
         <MudDrawerHeader Class="pa-6">
             <div class="d-flex align-center gap-3">
                 <div class="logo-circle">
-                    <MudIcon Icon="@Icons.Material.Filled.AutoAwesome" Color="Color.Primary" Size="Size.Medium" />
+                    <MudIcon Icon="@Icons.Material.Filled.AutoStories" Color="Color.Primary" Size="Size.Medium" />
                 </div>
-                <MudText Typo="Typo.h6" Class="fw-extra-bold primary-text">My Journal</MudText>
+                <MudText Typo="Typo.h6" Class="fw-extra-bold primary-text">Reflecta</MudText>
             </div>
         </MudDrawerHeader>
         <div class="nav-container px-4">
@@ -54,44 +54,44 @@
 <style>
     .glass-appbar {
         backdrop-filter: blur(12px);
-        background: @(_isDarkMode ? "rgba(10, 13, 24, 0.82)" : "rgba(255, 255, 255, 0.82)") !important;
+        background: @(_isDarkMode ? "rgba(12, 18, 24, 0.84)" : "rgba(253, 251, 248, 0.88)") !important;
         border-bottom: 1px solid @(_isDarkMode ? "rgba(255, 255, 255, 0.08)" : "rgba(0, 0, 0, 0.08)");
-        color: @(_isDarkMode ? "#F8FAFC" : "#1A1F36") !important;
+        color: @(_isDarkMode ? "#F5F0E9" : "#2A2F33") !important;
         position: sticky !important;
     }
 
     .title-gradient, .primary-gradient-text {
-        background: linear-gradient(135deg, #4D96FF 0%, #00EA9C 50%, #FF8A8A 100%);
+        background: linear-gradient(135deg, #CDA1FF 0%, #7CC8B6 50%, #F4B49A 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         letter-spacing: -0.04em;
         filter: drop-shadow(0 0 1px rgba(255,255,255,0.1));
     }
 
-    .peace-text { color: #4D96FF !important; }
+    .peace-text { color: #9C86E5 !important; }
 
     .fw-extra-bold { font-weight: 900 !important; }
     .fw-bold { font-weight: 700 !important; }
 
     .user-pill {
-        background: rgba(77, 150, 255, 0.1);
-        border: 1px solid rgba(77, 150, 255, 0.2);
+        background: rgba(156, 134, 229, 0.12);
+        border: 1px solid rgba(156, 134, 229, 0.2);
     }
 
     .premium-drawer {
-        background: @(_isDarkMode ? "#12182B" : "#FDFDFF") !important;
+        background: @(_isDarkMode ? "#121A22" : "#FEFCF9") !important;
         border-right: 1px solid @(_isDarkMode ? "rgba(255, 255, 255, 0.08)" : "rgba(0, 0, 0, 0.05)") !important;
     }
 
     .logo-circle {
         width: 36px;
         height: 36px;
-        background: rgba(77, 150, 255, 0.15);
+        background: rgba(156, 134, 229, 0.12);
         border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 4px 10px -2px rgba(77, 150, 255, 0.3);
+        box-shadow: 0 4px 10px -2px rgba(156, 134, 229, 0.3);
     }
 
     .hover-rotate:hover { transform: rotate(90deg); }
@@ -105,7 +105,7 @@
     }
 
     .primary-text {
-        color: @(_isDarkMode ? "#60A5FA" : "#4D96FF") !important;
+        color: @(_isDarkMode ? "#D6C7FF" : "#9C86E5") !important;
     }
 
     .secondary-text { color: var(--mud-palette-text-secondary) !important; }
@@ -118,7 +118,7 @@
         border-radius: 24px;
     }
 
-    .shadow-primary { box-shadow: 0 8px 24px -4px rgba(77, 150, 255, 0.4) !important; }
+    .shadow-primary { box-shadow: 0 8px 24px -4px rgba(156, 134, 229, 0.35) !important; }
     
     .glow-button {
         transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
@@ -141,32 +141,32 @@
     {
         PaletteLight = new PaletteLight()
         {
-            Primary = "#4D96FF",
-            Secondary = "#FF8A8A",
-            Tertiary = "#00EA9C",
-            Background = "#F8FAFC",
+            Primary = "#9C86E5",
+            Secondary = "#7CC8B6",
+            Tertiary = "#F4B49A",
+            Background = "#FDFBF7",
             Surface = "#FFFFFF",
             AppbarBackground = "#FFFFFF",
             DrawerBackground = "#FFFFFF",
-            DrawerText = "#1A1F36",
-            TextPrimary = "#1A1F36",
-            TextSecondary = "#64748B",
-            ActionDefault = "#475569",
+            DrawerText = "#2A2F33",
+            TextPrimary = "#2A2F33",
+            TextSecondary = "#6F7C86",
+            ActionDefault = "#5E6A75",
             Divider = "rgba(0,0,0, 0.08)"
         },
         PaletteDark = new PaletteDark()
         {
-            Primary = "#4D96FF",       // Vibrant Blue
-            Secondary = "#FF8A8A",     // Soft Pink
-            Tertiary = "#00EA9C",      // Emerald
-            Surface = "#1A1F36",       // Navy Surface
-            Background = "#0A0D18",    // Deep Navy Background
-            DrawerBackground = "#12182B",
-            AppbarBackground = "rgba(10, 13, 24, 0.8)",
-            ActionDefault = "#94A3B8",
-            ActionDisabled = "rgba(148, 163, 184, 0.3)",
-            TextPrimary = "#F8FAFC",   
-            TextSecondary = "#A3ACC2", 
+            Primary = "#D6C7FF",
+            Secondary = "#93D7C4",
+            Tertiary = "#F6C3AE",
+            Surface = "#141D25",
+            Background = "#0F151C",
+            DrawerBackground = "#111A22",
+            AppbarBackground = "rgba(15, 21, 28, 0.82)",
+            ActionDefault = "#A0ACB8",
+            ActionDisabled = "rgba(160, 172, 184, 0.3)",
+            TextPrimary = "#F5F0E9",
+            TextSecondary = "#D2D7DD",
             Divider = "rgba(255, 255, 255, 0.08)",
             TableLines = "rgba(255, 255, 255, 0.05)"
         }

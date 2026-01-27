@@ -5,7 +5,7 @@
 @* [VIVA INFO]: This page demonstrates 'Data Visualization'. 
    It fetches aggregated data from the AnalyticsService and displays it using MudBlazor components.
 *@
-<PageTitle>Analytics - Journal App</PageTitle>
+<PageTitle>Insights Studio - Reflecta</PageTitle>
 
 <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-8 mb-12">
     @if (!string.IsNullOrEmpty(errorMessage))
@@ -17,13 +17,13 @@
 
     <div class="d-flex align-center justify-space-between mb-8 animate-fade-in">
         <div>
-            <MudText Typo="Typo.h3" Class="fw-bold peace-text">Vibrant Insights ✨</MudText>
-            <MudText Typo="Typo.h6" Class="secondary-text mt-1 opacity-75">Track the brilliance and growth of your journey.</MudText>
+            <MudText Typo="Typo.h3" Class="fw-bold peace-text">Insights Studio</MudText>
+            <MudText Typo="Typo.h6" Class="secondary-text mt-1 opacity-75">A clear view of your habits and moods.</MudText>
         </div>
         <div class="d-flex gap-2">
-            <MudDateRangePicker @bind-DateRange="_dateRange" Label="Journal Span" Variant="Variant.Outlined" 
+            <MudDateRangePicker @bind-DateRange="_dateRange" Label="Date range" Variant="Variant.Outlined" 
                                 Class="glass rounded-pill px-4" MaxDate="@DateTime.Today" Editable="true" />
-            <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Refresh" OnClick="UpdateAnalytics" Class="rounded-pill px-6 shadow-primary">Update</MudButton>
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Refresh" OnClick="UpdateAnalytics" Class="rounded-pill px-6 shadow-primary">Refresh Insights</MudButton>
         </div>
     </div>
 
@@ -41,7 +41,7 @@
                 <div class="metric-card vibrant-gradient-blue shadow-lg">
                     <div class="metric-content">
                         <MudText Typo="Typo.h3" Class="fw-bold">@analytics.TotalEntries</MudText>
-                        <MudText Typo="Typo.subtitle2" Class="opacity-75 uppercase-tracking">Total Sparks</MudText>
+                        <MudText Typo="Typo.subtitle2" Class="opacity-75 uppercase-tracking">Total Entries</MudText>
                     </div>
                     <MudIcon Icon="@Icons.Material.Filled.Bolt" Class="metric-icon" />
                 </div>
@@ -50,7 +50,7 @@
                 <div class="metric-card vibrant-gradient-coral shadow-lg">
                     <div class="metric-content">
                         <MudText Typo="Typo.h3" Class="fw-bold">@analytics.CurrentStreak</MudText>
-                        <MudText Typo="Typo.subtitle2" Class="opacity-75 uppercase-tracking">Active Streak</MudText>
+                        <MudText Typo="Typo.subtitle2" Class="opacity-75 uppercase-tracking">Current Streak</MudText>
                     </div>
                     <MudIcon Icon="@Icons.Material.Filled.AutoGraph" Class="metric-icon" />
                 </div>
@@ -59,7 +59,7 @@
                 <div class="metric-card vibrant-gradient-success shadow-lg">
                     <div class="metric-content">
                         <MudText Typo="Typo.h3" Class="fw-bold">@analytics.LongestStreak</MudText>
-                        <MudText Typo="Typo.subtitle2" Class="opacity-75 uppercase-tracking">Longest Streak</MudText>
+                        <MudText Typo="Typo.subtitle2" Class="opacity-75 uppercase-tracking">Best Streak</MudText>
                     </div>
                     <MudIcon Icon="@Icons.Material.Filled.EmojiEvents" Class="metric-icon" />
                 </div>
@@ -81,8 +81,8 @@
                 <div class="glass pa-8 rounded-xxl shadow-xl h-100">
                     <div class="d-flex align-center justify-space-between mb-8">
                         <div>
-                            <MudText Typo="Typo.h5" Class="fw-bold">Mood Harmony</MudText>
-                            <MudText Typo="Typo.body2" Color="Color.Secondary" Class="opacity-75">Distribution of your emotional landscape.</MudText>
+                            <MudText Typo="Typo.h5" Class="fw-bold">Mood Balance</MudText>
+                            <MudText Typo="Typo.body2" Color="Color.Secondary" Class="opacity-75">How your moods distribute across entries.</MudText>
                         </div>
                         <MudIcon Icon="@Icons.Material.Filled.AutoGraph" Color="Color.Primary" />
                     </div>
@@ -129,8 +129,8 @@
                 <div class="glass pa-8 rounded-xxl shadow-xl">
                     <div class="d-flex align-center justify-space-between mb-8">
                         <div>
-                            <MudText Typo="Typo.h5" Class="fw-bold">Word Count Trends</MudText>
-                            <MudText Typo="Typo.body2" Color="Color.Secondary" Class="opacity-75">Your writing volume over time.</MudText>
+                            <MudText Typo="Typo.h5" Class="fw-bold">Writing Volume</MudText>
+                            <MudText Typo="Typo.body2" Color="Color.Secondary" Class="opacity-75">How much you write over time.</MudText>
                         </div>
                         <MudIcon Icon="@Icons.Material.Filled.Timeline" Color="Color.Primary" />
                     </div>
@@ -152,7 +152,7 @@
                     }
                     else
                     {
-                        <MudText Typo="Typo.body2" Class="opacity-50 text-center py-8">No writing data available for this span.</MudText>
+                        <MudText Typo="Typo.body2" Class="opacity-50 text-center py-8">No writing data for this range.</MudText>
                     }
                 </div>
             </MudItem>
@@ -162,8 +162,8 @@
                 <div class="glass pa-8 rounded-xxl shadow-xl">
                     <div class="d-flex align-center justify-space-between mb-8">
                         <div>
-                            <MudText Typo="Typo.h5" Class="fw-bold">Tag Constellation</MudText>
-                            <MudText Typo="Typo.body2" Color="Color.Secondary" Class="opacity-75">The most recurring themes in your journey.</MudText>
+                            <MudText Typo="Typo.h5" Class="fw-bold">Themes Map</MudText>
+                            <MudText Typo="Typo.body2" Color="Color.Secondary" Class="opacity-75">Most frequent themes across your entries.</MudText>
                         </div>
                         <MudIcon Icon="@Icons.Material.Filled.Tag" Color="Color.Primary" />
                     </div>
@@ -187,7 +187,7 @@
                     {
                         <div class="py-12 text-center opacity-50">
                             <MudIcon Icon="@Icons.Material.Filled.LocalOffer" Size="Size.Large" Class="mb-4" />
-                            <MudText Typo="Typo.body1">No tags discovered yet. Start tagging your reflections!</MudText>
+                            <MudText Typo="Typo.body1">No themes yet. Add tags to reveal patterns.</MudText>
                         </div>
                     }
                 </div>
@@ -226,10 +226,10 @@
         box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
     }
 
-    .peace-card { background: linear-gradient(135deg, #4B6E5B 0%, #7A9D54 100%); }
-    .serenity-card { background: linear-gradient(135deg, #8EACCD 0%, #6895D2 100%); }
-    .success-fade-card { background: linear-gradient(135deg, #7A9D54 0%, #A4BC92 100%); }
-    .info-fade-card { background: linear-gradient(135deg, #9EC8B9 0%, #5C8374 100%); }
+    .peace-card { background: linear-gradient(135deg, #6BBF9E 0%, #94D6D2 100%); }
+    .serenity-card { background: linear-gradient(135deg, #6B7FD1 0%, #8CA9E8 100%); }
+    .success-fade-card { background: linear-gradient(135deg, #86C5C2 0%, #6BBF9E 100%); }
+    .info-fade-card { background: linear-gradient(135deg, #F2C1A3 0%, #E9B86F 100%); }
 
     .metric-content { position: relative; z-index: 2; }
     
@@ -267,11 +267,11 @@
         border-color: var(--mud-palette-primary);
         transform: translateX(5px);
     }
-    .insight-row .mud-icon-root { font-size: 24px !important; color: #64748b; }
-    .insight-row.primary .mud-icon-root { color: #6366f1; }
-    .insight-row.secondary .mud-icon-root { color: #a855f7; }
-    .insight-row.info .mud-icon-root { color: #3b82f6; }
-    .insight-row.warning .mud-icon-root { color: #f59e0b; }
+    .insight-row .mud-icon-root { font-size: 24px !important; color: #6B7C93; }
+    .insight-row.primary .mud-icon-root { color: #6B7FD1; }
+    .insight-row.secondary .mud-icon-root { color: #86C5C2; }
+    .insight-row.info .mud-icon-root { color: #8CA9E8; }
+    .insight-row.warning .mud-icon-root { color: #E9B86F; }
 
     .modern-chip-premium {
         display: flex;
@@ -294,9 +294,9 @@
         border-color: transparent;
     }
     .modern-chip-premium.major { 
-        background: rgba(99, 102, 241, 0.1); 
-        color: #6366f1; 
-        border: 1px solid rgba(99, 102, 241, 0.3); 
+        background: rgba(107, 127, 209, 0.12); 
+        color: #6B7FD1; 
+        border: 1px solid rgba(107, 127, 209, 0.3); 
     }
     .tag-count { font-size: 0.75rem; opacity: 0.7; background: rgba(0,0,0,0.05); padding: 2px 8px; border-radius: 8px; }
 

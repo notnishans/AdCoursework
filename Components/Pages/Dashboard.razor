@@ -6,7 +6,7 @@
 @* [VIVA INFO]: The Dashboard is the central 'Landing Hub' after login. 
    It provides a high-level overview (Recent Entries + Quick Stats).
 *@
-<PageTitle>Dashboard - Journal App</PageTitle>
+<PageTitle>Overview - Reflecta</PageTitle>
 
 <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-8 mb-12">
     @if (!string.IsNullOrEmpty(errorMessage))
@@ -18,11 +18,11 @@
 
     <div class="d-flex align-center justify-space-between mb-8 animate-fade-in">
         <div>
-            <MudText Typo="Typo.h3" Class="fw-bold primary-gradient-text">Your Vibrant Journey, @AuthState.GetCurrentUsername()! ✨</MudText>
-            <MudText Typo="Typo.h6" Class="secondary-text mt-1 opacity-75">Unleash your thoughts and track your brilliant progress.</MudText>
+            <MudText Typo="Typo.h3" Class="fw-bold primary-gradient-text">Welcome back, @AuthState.GetCurrentUsername()</MudText>
+            <MudText Typo="Typo.h6" Class="secondary-text mt-1 opacity-75">A quiet overview of your recent reflections and progress.</MudText>
         </div>
-        <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Bolt" Size="Size.Large" OnClick='(() => Navigation.NavigateTo("/create-entry"))' Class="rounded-pill px-8 py-3 shadow-lg hover-scale">
-            New Entry
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.EditNote" Size="Size.Large" OnClick='(() => Navigation.NavigateTo("/create-entry"))' Class="rounded-pill px-8 py-3 shadow-lg hover-scale">
+            Write Reflection
         </MudButton>
         
     </div>
@@ -41,7 +41,7 @@
                 <div class="stat-card glass shadow-lg border-light vibrant-card">
                     <div class="stat-content">
                         <MudText Typo="Typo.h3" Class="fw-extra-bold primary-text">@(analytics?.TotalEntries ?? 0)</MudText>
-                        <MudText Typo="Typo.caption" Class="uppercase-tracking secondary-text">Total Sparks</MudText>
+                        <MudText Typo="Typo.caption" Class="uppercase-tracking secondary-text">Total Entries</MudText>
                     </div>
                     <div class="stat-icon-wrapper primary-fade">
                         <MudIcon Icon="@Icons.Material.Filled.HistoryEdu" Color="Color.Primary" />
@@ -52,7 +52,7 @@
                 <div class="stat-card glass shadow-lg border-light vibrant-card">
                     <div class="stat-content">
                         <MudText Typo="Typo.h3" Class="fw-extra-bold secondary-text">@(analytics?.CurrentStreak ?? 0)</MudText>
-                        <MudText Typo="Typo.caption" Class="uppercase-tracking secondary-text">Energy Streak</MudText>
+                        <MudText Typo="Typo.caption" Class="uppercase-tracking secondary-text">Current Streak</MudText>
                     </div>
                     <div class="stat-icon-wrapper secondary-fade">
                         <MudIcon Icon="@Icons.Material.Filled.AutoGraph" Color="Color.Secondary" />
@@ -74,7 +74,7 @@
                 <div class="stat-card glass shadow-sm border-light">
                     <div class="stat-content">
                         <MudText Typo="Typo.h3" Class="fw-extra-bold tertiary-text">@(analytics?.MissedDays ?? 0)</MudText>
-                        <MudText Typo="Typo.caption" Class="uppercase-tracking secondary-text">Days Away</MudText>
+                        <MudText Typo="Typo.caption" Class="uppercase-tracking secondary-text">Days Missed</MudText>
                     </div>
                     <div class="stat-icon-wrapper tertiary-fade">
                         <MudIcon Icon="@Icons.Material.Filled.Nightlight" Color="Color.Tertiary" />
@@ -87,8 +87,8 @@
             <!-- Recent Entries -->
             <MudItem xs="12" lg="8">
                 <div class="d-flex align-center justify-space-between mb-4 px-2">
-                    <MudText Typo="Typo.h5" Class="fw-bold">Recent Reflections</MudText>
-                    <MudButton OnClick='(() => Navigation.NavigateTo("/entries"))' Variant="Variant.Text" Color="Color.Primary" EndIcon="@Icons.Material.Filled.ArrowForward" Class="rounded-pill">View All</MudButton>
+                    <MudText Typo="Typo.h5" Class="fw-bold">Latest Entries</MudText>
+                    @* <MudButton OnClick='(() => Navigation.NavigateTo("/entries"))' Variant="Variant.Text" Color="Color.Primary" EndIcon="@Icons.Material.Filled.ArrowForward" Class="rounded-pill">Open Library</MudButton> *@
                 </div>
 
                 @if (recentEntries == null || !recentEntries.Any())
@@ -97,9 +97,9 @@
                         <div class="empty-state-icon">
                             <MudIcon Icon="@Icons.Material.Filled.HistoryEdu" />
                         </div>
-                        <MudText Typo="Typo.h5" Class="fw-bold mt-4">No entries yet</MudText>
-                        <MudText Typo="Typo.body1" Color="Color.Secondary" Class="mb-6 opacity-75">Start your journey today by writing your first reflection.</MudText>
-                        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick='(() => Navigation.NavigateTo("/create-entry"))' Class="rounded-pill px-6">Start Journaling</MudButton>
+                        <MudText Typo="Typo.h5" Class="fw-bold mt-4">Nothing here yet</MudText>
+                        <MudText Typo="Typo.body1" Color="Color.Secondary" Class="mb-6 opacity-75">Begin with a short note to build your space.</MudText>
+                        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick='(() => Navigation.NavigateTo("/create-entry"))' Class="rounded-pill px-6">Write first entry</MudButton>
                     </div>
                 }
                 else
@@ -128,7 +128,7 @@
                                     }
                                     else
                                     {
-                                        <MudText Typo="Typo.body2" Color="Color.Warning" Class="opacity-75 italic">✨ Encrypted in your personal vault. Click to unlock. ✨</MudText>
+                                        <MudText Typo="Typo.body2" Color="Color.Warning" Class="opacity-75 italic">Locked entry. Tap to unlock.</MudText>
                                     }
                                     <div class="d-flex align-center mt-3 gap-2">
                                         @if (!string.IsNullOrEmpty(entry.Tags))
@@ -148,55 +148,6 @@
                 }
             </MudItem>
 
-            <!-- Side Cards -->
-            <MudItem xs="12" lg="4">
-                <MudText Typo="Typo.h5" Class="fw-bold mb-4 px-2">Insights & Actions</MudText>
-                <MudStack Spacing="4">
-                    <!-- Quick Analytics Card -->
-                    <div class="insight-card info-gradient shadow-md">
-                        <div class="d-flex align-center mb-4">
-                            <MudIcon Icon="@Icons.Material.Filled.Lightbulb" Color="Color.Primary" Class="mr-2" />
-                            <MudText Typo="Typo.h6" Class="fw-bold">Your Mood Vibes</MudText>
-                        </div>
-                        <MudText Typo="Typo.body2" Class="mb-6 opacity-75">Most of your reflections lately have been <b>@analytics?.MostFrequentMood?.ToLower()</b>. Keep up the great work!</MudText>
-                        <MudButton OnClick='(() => Navigation.NavigateTo("/analytics"))' Variant="Variant.Filled" Color="Color.Primary" FullWidth="true" Class="rounded-pill py-2 shadow-sm">Detailed Analytics</MudButton>
-                    </div>
-
-                    <!-- Tags Card -->
-                    <MudPaper Class="pa-6 rounded-xl border-none shadow-md overflow-hidden" Elevation="0" Style="background: var(--mud-palette-surface);">
-                        <div class="d-flex align-center justify-space-between mb-4">
-                            <MudText Typo="Typo.h6" Class="fw-bold">Popular Tags</MudText>
-                            <MudIcon Icon="@Icons.Material.Filled.Tag" Color="Color.Primary" Size="Size.Small" />
-                        </div>
-                        @if (analytics?.TagUsageCount != null && analytics.TagUsageCount.Any())
-                        {
-                            <div class="d-flex flex-wrap gap-2">
-                                @foreach (var tag in analytics.TagUsageCount.Take(10))
-                                {
-                                    <MudChip T="string" Color="Color.Primary" Variant="Variant.Text" Label="true" Size="Size.Small" Class="m-0 hover-scale-small">@tag.Key</MudChip>
-                                }
-                            </div>
-                        }
-                        else
-                        {
-                            <MudText Typo="Typo.body2" Color="Color.Secondary" Class="opacity-75 pa-4 text-center">No tags yet. Add tags to your entries to see them here!</MudText>
-                        }
-                    </MudPaper>
-
-                    <!-- Goal Card -->
-                    <div class="insight-card goal-card text-center">
-                        <MudText Typo="Typo.subtitle1" Class="fw-bold mb-4">Level Up Your Journey</MudText>
-                        <div class="goal-progress-wrapper mb-4">
-                            <MudProgressCircular Color="Color.Primary" Value="@(Math.Min(100, (analytics?.TotalEntries % 20 ?? 0) * 5))" Size="Size.Large" Thickness="6" />
-                            <div class="goal-count">
-                                <MudText Typo="Typo.h6" Color="Color.Primary"><b>@(analytics?.TotalEntries % 20 ?? 0)</b></MudText>
-                                <MudText Typo="Typo.caption" Color="Color.Secondary">/ 20</MudText>
-                            </div>
-                        </div>
-                        <MudText Typo="Typo.body2" Color="Color.Secondary">Write <b>@(20 - (analytics?.TotalEntries % 20 ?? 0))</b> more entries to hit your next goal!</MudText>
-                    </div>
-                </MudStack>
-            </MudItem>
         </MudGrid>
     }
 </MudContainer>
@@ -210,7 +161,7 @@
     .primary-text { color: var(--mud-palette-primary); }
     .secondary-text-alt { color: var(--mud-palette-secondary); }
     .tertiary-text { color: var(--mud-palette-tertiary); }
-    .success-text { color: #10b981; }
+    .success-text { color: #6BBF9E; }
 
     .primary-gradient-text {
         background: linear-gradient(135deg, var(--mud-palette-primary) 0%, var(--mud-palette-secondary) 100%);
@@ -281,8 +232,8 @@
         position: absolute;
         bottom: -4px;
         right: -4px;
-        background: #1A1F36;
-        border: 2px solid #FFD700;
+        background: #1E2633;
+        border: 2px solid #E9B86F;
         border-radius: 50%;
         width: 24px;
         height: 24px;
