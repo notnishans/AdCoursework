@@ -3,90 +3,90 @@
 /* Light Theme (Vibrant & Energetic) */
 :root,
 [data-theme="Light"] {
-    /* Primary Colors - Vibrant Blue */
-    --primary-color: #2D5AF2;
-    --primary-hover: #1A46D9;
-    --primary-light: #E9EFFF;
+    /* Primary Colors - Soft Iris */
+    --primary-color: #7C8FD9;
+    --primary-hover: #6C7FC7;
+    --primary-light: #EFF2FF;
 
-    /* Secondary Colors - Vibrant Coral */
-    --secondary-color: #FF6B6B;
-    --secondary-hover: #FF5252;
+    /* Secondary Colors - Calm Teal */
+    --secondary-color: #8EC9C3;
+    --secondary-hover: #7AB7B1;
 
     /* Status Colors */
-    --success-color: #00D28A;
-    --danger-color: #FF5C8E;
-    --warning-color: #FFB84C;
-    --info-color: #4D96FF;
+    --success-color: #74C4A6;
+    --danger-color: #E78895;
+    --warning-color: #EBC58A;
+    --info-color: #96B0EE;
 
     /* Background Colors */
-    --body-bg: #F8FAFF;
+    --body-bg: #F7F9FC;
     --content-bg: #FFFFFF;
-    --sidebar-bg: #1A1F36;
+    --sidebar-bg: #151C2B;
     --card-bg: #FFFFFF;
-    --hover-bg: #F1F4FD;
+    --hover-bg: #F1F4F9;
 
     /* Text Colors */
-    --text-primary: #1A1F36;
-    --text-secondary: #4F566B;
-    --text-muted: #A3ACC2;
+    --text-primary: #1F2A37;
+    --text-secondary: #64748B;
+    --text-muted: #9AA6B2;
     --text-on-dark: #FFFFFF;
 
     /* Border and Shadow */
-    --border-color: #E6E9F0;
-    --border-light: #F1F4F9;
-    --shadow-sm: 0 2px 4px rgba(45, 90, 242, 0.05);
-    --shadow-md: 0 8px 16px rgba(45, 90, 242, 0.1);
-    --shadow-lg: 0 16px 40px rgba(45, 90, 242, 0.15);
+    --border-color: #E4EAF2;
+    --border-light: #F2F5F9;
+    --shadow-sm: 0 2px 6px rgba(31, 42, 55, 0.06);
+    --shadow-md: 0 10px 20px rgba(31, 42, 55, 0.12);
+    --shadow-lg: 0 18px 40px rgba(31, 42, 55, 0.16);
 
     /* Mood Colors */
-    --mood-positive: #00D28A;
-    --mood-neutral: #4D96FF;
-    --mood-negative: #FF5C8E;
+    --mood-positive: #74C4A6;
+    --mood-neutral: #96B0EE;
+    --mood-negative: #E78895;
 }
 
 /* Dark Theme (Modern and Eye-friendly) */
 [data-theme="Dark"] {
-    /* Primary Colors - Vibrant Blues */
-    --primary-color: #60a5fa;
-    --primary-hover: #3b82f6;
-    --primary-light: #1e3a5f;
+    /* Primary Colors - Soft Iris (Dark) */
+    --primary-color: #A9B8FF;
+        /* Primary Colors - Soft Amethyst */
+        --primary-color: #9C86E5;
+        --primary-hover: #8A74D1;
+        --primary-light: #F3EEFF;
 
-    /* Secondary Colors */
-    --secondary-color: #fbbf24;
-    --secondary-hover: #f59e0b;
+        /* Secondary Colors - Seafoam */
+        --secondary-color: #7CC8B6;
+        --secondary-hover: #6FB6A6;
 
-    /* Status Colors - Brighter for dark bg */
-    --success-color: #4ade80;
-    --danger-color: #f87171;
-    --warning-color: #fbbf24;
-    --info-color: #60a5fa;
+        /* Status Colors */
+        --success-color: #7CC9B0;
+        --danger-color: #E8929F;
+        --warning-color: #E8C28E;
+        --info-color: #A2B5F2;
 
-    /* Background Colors - Dark Gradients */
-    --body-bg: #0f172a;
-    --content-bg: #1e293b;
-    --sidebar-bg: #0f172a;
-    --card-bg: #1e293b;
-    --hover-bg: #334155;
+        /* Background Colors */
+        --body-bg: #FDFBF7;
+        --content-bg: #FFFFFF;
+        --sidebar-bg: #121A22;
+        --card-bg: #FFFFFF;
+        --hover-bg: #F3F1EC;
 
-    /* Text Colors - High Contrast for Dark Mode */
-    --text-primary: #f8fafc;
-    --text-secondary: #e2e8f0;
-    --text-muted: #cbd5e1;
-    --text-on-dark: #ffffff;
+        /* Text Colors */
+        --text-primary: #2A2F33;
+        --text-secondary: #6F7C86;
+        --text-muted: #9AA6B0;
+        --text-on-dark: #FFFFFF;
 
-    /* Border and Shadow */
-    --border-color: #334155;
-    --border-light: #475569;
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
-    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.5);
+        /* Border and Shadow */
+        --border-color: #E7E1D8;
+        --border-light: #F4EFE7;
+        --shadow-sm: 0 2px 6px rgba(42, 47, 51, 0.06);
+        --shadow-md: 0 10px 20px rgba(42, 47, 51, 0.12);
+        --shadow-lg: 0 18px 40px rgba(42, 47, 51, 0.16);
 
-    /* Mood Colors - Dark Theme (More vibrant) */
-    --mood-positive: #4ade80;
-    --mood-neutral: #60a5fa;
-    --mood-negative: #f87171;
-}
-
+        /* Mood Colors */
+        --mood-positive: #7CC9B0;
+        --mood-neutral: #A2B5F2;
+        --mood-negative: #E8929F;
 * {
     margin: 0;
     padding: 0;
@@ -97,42 +97,42 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     color: var(--text-primary);
-    background-color: var(--body-bg);
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
+        /* Primary Colors - Soft Amethyst (Dark) */
+        --primary-color: #D6C7FF;
+        --primary-hover: #C2B2F2;
+        --primary-light: #2A3240;
 
-/* Typography */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    color: var(--text-primary);
-    margin-bottom: 1rem;
-    transition: color 0.3s ease;
-}
+        /* Secondary Colors */
+        --secondary-color: #93D7C4;
+        --secondary-hover: #7FC7B4;
 
-h1 {
-    font-size: 2.5em;
-    font-weight: 700;
-}
+        /* Status Colors - Soft in dark */
+        --success-color: #89D3BB;
+        --danger-color: #F0A7B2;
+        --warning-color: #F0CF9D;
+        --info-color: #B3C5F5;
 
-h2 {
-    font-size: 2em;
-    font-weight: 600;
-}
+        /* Background Colors - Deep, soft */
+        --body-bg: #0F151C;
+        --content-bg: #141D25;
+        --sidebar-bg: #101820;
+        --card-bg: #141D25;
+        --hover-bg: #1A232C;
 
-h3 {
-    font-size: 1.5em;
-    font-weight: 600;
-}
+        /* Text Colors - High Contrast for Dark Mode */
+        --text-primary: #f5f0e9;
+        --text-secondary: #d2d7dd;
+        --text-muted: #aab3bc;
+        --text-on-dark: #ffffff;
 
-p {
-    color: var(--text-primary);
-    margin-bottom: 1rem;
-    transition: color 0.3s ease;
-}
+        /* Border and Shadow */
+        --border-color: #2B353F;
+        --border-light: #323E4A;
+
+        /* Mood Colors - Dark Theme (More vibrant) */
+        --mood-positive: #89D3BB;
+        --mood-neutral: #B3C5F5;
+        --mood-negative: #F0A7B2;
 
 /* Layout */
 .page {
@@ -309,12 +309,12 @@ textarea.form-control {
 }
 
 .btn-secondary {
-    background-color: #6c757d;
+    background-color: #8591A3;
     color: white;
 }
 
 .btn-secondary:hover {
-    background-color: #5a6268;
+    background-color: #758094;
 }
 
 .btn-success {
@@ -323,7 +323,7 @@ textarea.form-control {
 }
 
 .btn-success:hover {
-    background-color: #229954;
+    background-color: #4C9E7E;
 }
 
 .btn-danger {
@@ -332,7 +332,7 @@ textarea.form-control {
 }
 
 .btn-danger:hover {
-    background-color: #c0392b;
+    background-color: #D86B7C;
 }
 
 .btn-warning {
@@ -341,7 +341,7 @@ textarea.form-control {
 }
 
 .btn-warning:hover {
-    background-color: #d68910;
+    background-color: #D29B53;
 }
 
 .btn:disabled {
@@ -931,13 +931,13 @@ textarea.form-control {
 }
 
 .calendar-day.has-entry {
-    background-color: #f0fff4;
+    background-color: #F1FBF6;
 }
 
 .day-number {
     font-size: 1.2em;
     font-weight: 600;
-    color: #333;
+    color: #2F3A45;
     margin-bottom: 5px;
 }
 
@@ -958,18 +958,18 @@ textarea.form-control {
 }
 
 .day-indicator.positive {
-    background-color: #d4edda;
-    box-shadow: 0 2px 8px rgba(39, 174, 96, 0.3);
+    background-color: #E6F5EE;
+    box-shadow: 0 2px 8px rgba(107, 191, 158, 0.3);
 }
 
 .day-indicator.neutral {
-    background-color: #d1ecf1;
-    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
+    background-color: #E9F0FB;
+    box-shadow: 0 2px 8px rgba(140, 169, 232, 0.3);
 }
 
 .day-indicator.negative {
-    background-color: #f8d7da;
-    box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+    background-color: #FBECEF;
+    box-shadow: 0 2px 8px rgba(228, 124, 139, 0.3);
 }
 
 .mood-emoji {
@@ -977,12 +977,12 @@ textarea.form-control {
 }
 
 .selected-date-info {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #6B7FD1 0%, #86C5C2 100%);
     color: white;
     padding: 30px;
     border-radius: 12px;
     margin-top: 30px;
-    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+    box-shadow: 0 8px 24px rgba(107, 127, 209, 0.3);
 }
 
 .selected-date-info h3 {
@@ -993,7 +993,7 @@ textarea.form-control {
 
 .entry-detail {
     background: white;
-    color: #333;
+    color: #2F3A45;
     padding: 25px;
     border-radius: 10px;
     margin-top: 15px;
@@ -1005,7 +1005,7 @@ textarea.form-control {
     align-items: center;
     margin-bottom: 20px;
     padding-bottom: 15px;
-    border-bottom: 2px solid #e9ecef;
+    border-bottom: 2px solid #E6EAF1;
 }
 
 .entry-detail-header h4 {
@@ -1027,10 +1027,10 @@ textarea.form-control {
     line-height: 1.8;
     margin-bottom: 20px;
     padding: 15px;
-    background-color: #f8f9fa;
+    background-color: #F6F8FB;
     border-left: 4px solid var(--primary-color);
     border-radius: 5px;
-    color: #555;
+    color: #4A5563;
 }
 
 .entry-tags-display {
@@ -1041,14 +1041,14 @@ textarea.form-control {
     display: flex;
     justify-content: space-between;
     padding-top: 15px;
-    border-top: 1px solid #e9ecef;
-    color: #6c757d;
+    border-top: 1px solid #E6EAF1;
+    color: #7A889C;
     font-size: 0.9em;
 }
 
 .no-entry-message {
     background: white;
-    color: #333;
+    color: #2F3A45;
     padding: 40px;
     border-radius: 10px;
     text-align: center;
@@ -1057,12 +1057,12 @@ textarea.form-control {
 
 .no-entry-message p {
     font-size: 1.3em;
-    color: #6c757d;
+    color: #7A889C;
     margin-bottom: 20px;
 }
 
 .calendar-legend {
-    background: #f8f9fa;
+    background: #F6F8FB;
     padding: 20px;
     border-radius: 10px;
     margin-top: 30px;
@@ -1094,19 +1094,19 @@ textarea.form-control {
 }
 
 .legend-dot.positive {
-    background-color: #d4edda;
+    background-color: #E6F5EE;
 }
 
 .legend-dot.neutral {
-    background-color: #d1ecf1;
+    background-color: #E9F0FB;
 }
 
 .legend-dot.negative {
-    background-color: #f8d7da;
+    background-color: #FBECEF;
 }
 
 .legend-dot.today {
-    background-color: #fff9e6;
+    background-color: #FFF4E5;
     border: 2px solid var(--secondary-color);
 }
 
@@ -1198,17 +1198,17 @@ textarea.form-control:focus {
 }
 
 .stat-card {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #6B7FD1 0%, #86C5C2 100%);
     color: white;
     padding: 25px;
     text-align: center;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    box-shadow: 0 4px 15px rgba(107, 127, 209, 0.3);
     transition: all 0.3s ease;
 }
 
 .stat-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 8px 25px rgba(107, 127, 209, 0.4);
 }
 
 .stat-card h3 {
@@ -1350,10 +1350,10 @@ textarea.form-control:focus {
     text-align: center;
     margin-bottom: 40px;
     padding: 30px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #6B7FD1 0%, #86C5C2 100%);
     border-radius: 15px;
     color: white;
-    box-shadow: 0 8px 30px rgba(102, 126, 234, 0.3);
+    box-shadow: 0 8px 30px rgba(107, 127, 209, 0.3);
 }
 
 .dashboard-header h1 {
@@ -1419,19 +1419,19 @@ textarea.form-control:focus {
 }
 
 .stat-card.total-entries {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #6B7FD1 0%, #8CA9E8 100%);
 }
 
 .stat-card.current-streak {
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    background: linear-gradient(135deg, #F2C1A3 0%, #E9B86F 100%);
 }
 
 .stat-card.longest-streak {
-    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    background: linear-gradient(135deg, #86C5C2 0%, #6BBF9E 100%);
 }
 
 .stat-card.average-words {
-    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    background: linear-gradient(135deg, #7CCBB0 0%, #94D6D2 100%);
 }
 
 .highlight {
@@ -1439,7 +1439,7 @@ textarea.form-control:focus {
     color: var(--primary-color);
     font-weight: 700;
     padding: 20px;
-    background: linear-gradient(135deg, #e3f2fd 0%, #f0f7ff 100%);
+    background: linear-gradient(135deg, #EAF2FF 0%, #F4F7FF 100%);
     border-radius: 10px;
     text-align: center;
     border-left: 5px solid var(--primary-color);
@@ -1450,8 +1450,8 @@ textarea.form-control:focus {
    ============================== */
 
 .formatting-toolbar {
-    background: #f8f9fa;
-    border: 1px solid #dee2e6;
+    background: #F6F8FB;
+    border: 1px solid #E2E8F0;
     border-bottom: none;
     border-radius: 8px 8px 0 0;
     padding: 10px;
@@ -1463,7 +1463,7 @@ textarea.form-control:focus {
 
 .toolbar-btn {
     background: white;
-    border: 1px solid #dee2e6;
+    border: 1px solid #E2E8F0;
     border-radius: 4px;
     padding: 8px 12px;
     cursor: pointer;
@@ -1476,12 +1476,12 @@ textarea.form-control:focus {
 }
 
 .toolbar-btn:hover {
-    background: #e9ecef;
-    border-color: #adb5bd;
+    background: #EEF2F7;
+    border-color: #C9D4E2;
 }
 
 .toolbar-btn:active {
-    background: #dee2e6;
+    background: #E1E7F0;
     transform: translateY(1px);
 }
 
@@ -1494,7 +1494,7 @@ textarea.form-control:focus {
 .toolbar-separator {
     height: 24px;
     width: 1px;
-    background: #dee2e6;
+    background: #E2E8F0;
     margin: 0 5px;
 }
 
@@ -2041,12 +2041,12 @@ textarea.form-control:focus {
 }
 
 .title-h1-input::placeholder {
-    color: rgba(26, 31, 54, 0.2) !important;
+    color: rgba(30, 38, 51, 0.3) !important;
 }
 
-.vibrant-gradient-blue { background: linear-gradient(135deg, #2D5AF2 0%, #4D96FF 100%) !important; color: white !important; }
-.vibrant-gradient-coral { background: linear-gradient(135deg, #FF6B6B 0%, #FF8A8A 100%) !important; color: white !important; }
-.vibrant-gradient-success { background: linear-gradient(135deg, #00D28A 0%, #00EA9C 100%) !important; color: white !important; }
+.vibrant-gradient-blue { background: linear-gradient(135deg, #6B7FD1 0%, #8CA9E8 100%) !important; color: white !important; }
+.vibrant-gradient-coral { background: linear-gradient(135deg, #E9B86F 0%, #F2C1A3 100%) !important; color: white !important; }
+.vibrant-gradient-success { background: linear-gradient(135deg, #6BBF9E 0%, #94D6D2 100%) !important; color: white !important; }
 
 .metric-card.vibrant-gradient-blue .metric-icon,
 .metric-card.vibrant-gradient-coral .metric-icon,
