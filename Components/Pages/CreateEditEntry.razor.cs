@@ -457,6 +457,15 @@ namespace JournalApp.Components.Pages
             }
         }
 
+        private void HandleTagAddClick()
+        {
+            if (!string.IsNullOrWhiteSpace(newTag))
+            {
+                AddTag(newTag.Trim());
+                newTag = "";
+            }
+        }
+
         // Delete entry
         private async Task DeleteEntry()
         {

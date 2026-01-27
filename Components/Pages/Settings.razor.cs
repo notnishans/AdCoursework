@@ -93,9 +93,13 @@ namespace JournalApp.Components.Pages
                     currentUser = result.User;
                 }
                 
-                message = "Profile synchronized successfully! ✨";
+                message = "Profile updated.";
                 isSuccess = true;
-                Snackbar.Add(message, Severity.Success);
+                Snackbar.Add(message, Severity.Info, options =>
+                {
+                    options.SnackbarVariant = Variant.Filled;
+                    options.Icon = Icons.Material.Filled.CheckCircle;
+                });
             }
             else
             {
@@ -158,7 +162,11 @@ namespace JournalApp.Components.Pages
             {
                 // Apply theme instantly using JavaScript helper if needed
                 await JSRuntime.InvokeVoidAsync("themeManager.applyTheme", theme);
-                Snackbar.Add($"Theme switched to {theme}! ✨", Severity.Success);
+                Snackbar.Add($"Appearance set to {theme} mode.", Severity.Info, options =>
+                {
+                    options.SnackbarVariant = Variant.Filled;
+                    options.Icon = Icons.Material.Filled.Palette;
+                });
             }
         }
 
