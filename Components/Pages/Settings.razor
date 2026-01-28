@@ -33,7 +33,30 @@
 
         <div class="glass pa-8 rounded-xxl mb-6">
             <div class="d-flex align-center mb-6 gap-3">
-                <div class="icon-box success">
+                <MudText Typo="Typo.h6" Class="fw-bold">Theme Customization</MudText>
+            </div>
+            <MudText Typo="Typo.body2" Class="mb-6 opacity-60">Switch between light/dark or custom themes.</MudText>
+            <div class="theme-toggle" role="group" aria-label="Theme selection">
+                <MudButton OnClick="async () => await OnThemeToggle(false)"
+                           Variant="@(IsDarkMode ? Variant.Outlined : Variant.Filled)"
+                           Color="@(IsDarkMode ? Color.Default : Color.Primary)"
+                           Class="@(IsDarkMode ? "theme-option left" : "theme-option left active")">
+                    Light
+                </MudButton>
+                <MudButton OnClick="async () => await OnThemeToggle(true)"
+                           Variant="@(IsDarkMode ? Variant.Filled : Variant.Outlined)"
+                           Color="@(IsDarkMode ? Color.Primary : Color.Default)"
+                           Class="@(IsDarkMode ? "theme-option right active" : "theme-option right")">
+                    Dark
+                </MudButton>
+            </div>
+        </div>
+    </MudItem>
+
+    <MudItem xs="12" md="6">
+        <div class="glass pa-8 rounded-xxl export-soft">
+            <div class="d-flex align-center mb-6 gap-3">
+                <div class="icon-box soft">
                     <MudIcon Icon="@Icons.Material.Filled.FileDownload" Size="Size.Small" />
                 </div>
                 <MudText Typo="Typo.h6" Class="fw-bold">Export Journal</MudText>
@@ -47,31 +70,9 @@
                     <MudDatePicker @bind-Date="exportEndDate" Label="To" Variant="Variant.Outlined" Class="rounded-lg" />
                 </MudItem>
             </MudGrid>
-            <MudButton OnClick="ExportToPdf" Variant="Variant.Filled" Color="Color.Success" StartIcon="@Icons.Material.Filled.PictureAsPdf" Class="rounded-pill px-8 py-3 shadow-success">
+            <MudButton OnClick="ExportToPdf" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.PictureAsPdf" Class="rounded-pill px-8 py-3 shadow-soft">
                 Create PDF Export
             </MudButton>
-        </div>
-    </MudItem>
-
-    <MudItem xs="12" md="6">
-        <div class="glass pa-8 rounded-xxl">
-            <div class="d-flex align-center mb-6 gap-3">
-                <div class="icon-box secondary">
-                    <MudIcon Icon="@Icons.Material.Filled.Palette" Size="Size.Small" />
-                </div>
-                <MudText Typo="Typo.h6" Class="fw-bold">Appearance</MudText>
-            </div>
-            <MudText Typo="Typo.body2" Class="mb-4 opacity-60">Choose a look that fits your focus.</MudText>
-            <div class="theme-selector d-flex gap-4 mb-6">
-                <div class="theme-pill @(selectedTheme == "Light" ? "active" : "")" @onclick='() => selectedTheme = "Light"'>
-                    <MudIcon Icon="@Icons.Material.Filled.LightMode" Size="Size.Small" Class="mr-2" />
-                    <span> Day</span>
-                </div>
-                <div class="theme-pill @(selectedTheme == "Dark" ? "active" : "")" @onclick='() => selectedTheme = "Dark"'>
-                    <MudIcon Icon="@Icons.Material.Filled.DarkMode" Size="Size.Small" Class="mr-2" />
-                    <span> Night</span>
-                </div>
-            </div>
         </div>
     </MudItem>
 </MudGrid>
@@ -106,28 +107,33 @@
     .icon-box.secondary { background: rgba(var(--mud-palette-secondary-rgb), 0.1); color: var(--mud-palette-secondary); }
     .icon-box.tertiary { background: rgba(var(--mud-palette-tertiary-rgb), 0.1); color: var(--mud-palette-tertiary); }
     .icon-box.success { background: rgba(var(--mud-palette-success-rgb), 0.1); color: var(--mud-palette-success); }
+    .icon-box.soft {
+        background: rgba(var(--mud-palette-primary-rgb), 0.08);
+        color: var(--mud-palette-primary);
+    }
     .icon-box.warning { background: rgba(var(--mud-palette-warning-rgb), 0.1); color: var(--mud-palette-warning); }
 
-    .theme-pill {
-        padding: 12px 20px;
+    .theme-toggle {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        border-radius: 14px;
+        border: 1px solid rgba(var(--mud-palette-divider-rgb), 0.15);
+        background: rgba(var(--mud-palette-primary-rgb), 0.03);
+        padding: 0.4rem;
+        gap: 0.4rem;
+    }
+    .theme-option {
+        font-weight: 700;
+        text-transform: none;
         border-radius: 12px;
-        border: 1px solid rgba(var(--mud-palette-divider-rgb), 0.1);
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        transition: all 0.2s ease;
-        flex: 1;
-        justify-content: center;
-        font-weight: 600;
-        color: var(--mud-palette-text-secondary);
+        padding: 0.7rem 0.5rem;
+        min-height: 48px;
     }
-    .theme-pill:hover { background: rgba(var(--mud-palette-primary-rgb), 0.05); }
-    .theme-pill.active {
-        background: var(--mud-palette-primary);
-        color: white;
-        border-color: var(--mud-palette-primary);
-        box-shadow: 0 4px 12px -2px rgba(var(--mud-palette-primary-rgb), 0.3);
+    .theme-option.active {
+        box-shadow: 0 8px 16px -8px rgba(var(--mud-palette-primary-rgb), 0.55);
     }
+    .theme-option.left { border-top-right-radius: 12px; border-bottom-right-radius: 12px; }
+    .theme-option.right { border-top-left-radius: 12px; border-bottom-left-radius: 12px; }
 
     .pin-status { border: 1px solid transparent; }
     .pin-status.active { background: rgba(var(--mud-palette-success-rgb), 0.05); border-color: rgba(var(--mud-palette-success-rgb), 0.1); color: var(--mud-palette-success); }
@@ -135,6 +141,14 @@
 
     .shadow-primary { box-shadow: 0 8px 16px -4px rgba(var(--mud-palette-primary-rgb), 0.4); }
     .shadow-success { box-shadow: 0 8px 16px -4px rgba(var(--mud-palette-success-rgb), 0.4); }
+    .shadow-soft { box-shadow: 0 10px 18px -10px rgba(var(--mud-palette-primary-rgb), 0.35); }
+
+    .export-soft {
+        border: 1px solid rgba(var(--mud-palette-primary-rgb), 0.08) !important;
+        background: linear-gradient(135deg,
+            rgba(var(--mud-palette-primary-rgb), 0.04),
+            rgba(var(--mud-palette-surface-rgb), 0.9));
+    }
 
     .glow-button {
         transition: all 0.3s ease;

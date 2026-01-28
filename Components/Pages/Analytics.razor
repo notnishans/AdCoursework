@@ -81,46 +81,44 @@
                 <div class="glass pa-8 rounded-xxl shadow-xl h-100">
                     <div class="d-flex align-center justify-space-between mb-8">
                         <div>
-                            <MudText Typo="Typo.h5" Class="fw-bold">Mood Balance</MudText>
-                            <MudText Typo="Typo.body2" Color="Color.Secondary" Class="opacity-75">How your moods distribute across entries.</MudText>
+                            <MudText Typo="Typo.h5" Class="fw-bold">Mood Distribution</MudText>
+                            <MudText Typo="Typo.body2" Color="Color.Secondary" Class="opacity-75">Bar graph of mood distribution across entries.</MudText>
                         </div>
-                        <MudIcon Icon="@Icons.Material.Filled.AutoGraph" Color="Color.Primary" />
+                        <MudIcon Icon="@Icons.Material.Filled.BarChart" Color="Color.Primary" />
                     </div>
 
-                    <MudStack Spacing="6">
-                        <div class="mood-stat-group">
-                            <div class="d-flex justify-space-between align-center mb-2">
-                                <div class="d-flex align-center gap-2">
-                                    <span class="mood-emoji">😊</span>
-                                    <MudText Typo="Typo.h6" Class="fw-bold">Positive</MudText>
-                                </div>
-                                <MudText Typo="Typo.h6" Color="Color.Success">@analytics.PositiveMoodPercentage%</MudText>
+                    <div class="mood-bar-chart" role="img" aria-label="Mood distribution bar chart">
+                        <div class="mood-bar-column">
+                            <div class="mood-bar-track">
+                                <div class="mood-bar-fill positive" style="@($"height: {analytics.PositiveMoodPercentage}%")"></div>
                             </div>
-                            <MudProgressLinear Color="Color.Success" Value="@analytics.PositiveMoodPercentage" Size="Size.Large" Class="rounded-pill shadow-inner" style="height: 12px;" />
-                        </div>
-
-                        <div class="mood-stat-group">
-                            <div class="d-flex justify-space-between align-center mb-2">
-                                <div class="d-flex align-center gap-2">
-                                    <span class="mood-emoji">😐</span>
-                                    <MudText Typo="Typo.h6" Class="fw-bold">Neutral</MudText>
-                                </div>
-                                <MudText Typo="Typo.h6" Color="Color.Info">@analytics.NeutralMoodPercentage%</MudText>
+                            <div class="mood-bar-label">
+                                <span class="mood-emoji">😊</span>
+                                <span class="label">Positive</span>
+                                <span class="value">@analytics.PositiveMoodPercentage%</span>
                             </div>
-                            <MudProgressLinear Color="Color.Info" Value="@analytics.NeutralMoodPercentage" Size="Size.Large" Class="rounded-pill shadow-inner" style="height: 12px;" />
                         </div>
-
-                        <div class="mood-stat-group">
-                            <div class="d-flex justify-space-between align-center mb-2">
-                                <div class="d-flex align-center gap-2">
-                                    <span class="mood-emoji">😔</span>
-                                    <MudText Typo="Typo.h6" Class="fw-bold">Negative</MudText>
-                                </div>
-                                <MudText Typo="Typo.h6" Color="Color.Error">@analytics.NegativeMoodPercentage%</MudText>
+                        <div class="mood-bar-column">
+                            <div class="mood-bar-track">
+                                <div class="mood-bar-fill neutral" style="@($"height: {analytics.NeutralMoodPercentage}%")"></div>
                             </div>
-                            <MudProgressLinear Color="Color.Error" Value="@analytics.NegativeMoodPercentage" Size="Size.Large" Class="rounded-pill shadow-inner" style="height: 12px;" />
+                            <div class="mood-bar-label">
+                                <span class="mood-emoji">😐</span>
+                                <span class="label">Neutral</span>
+                                <span class="value">@analytics.NeutralMoodPercentage%</span>
+                            </div>
                         </div>
-                    </MudStack>
+                        <div class="mood-bar-column">
+                            <div class="mood-bar-track">
+                                <div class="mood-bar-fill negative" style="@($"height: {analytics.NegativeMoodPercentage}%")"></div>
+                            </div>
+                            <div class="mood-bar-label">
+                                <span class="mood-emoji">😔</span>
+                                <span class="label">Negative</span>
+                                <span class="value">@analytics.NegativeMoodPercentage%</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </MudItem>
 
@@ -129,8 +127,11 @@
                 <div class="glass pa-8 rounded-xxl shadow-xl h-100">
                     <div class="d-flex align-center justify-space-between mb-8">
                         <div>
+            }
+
                             <MudText Typo="Typo.h5" Class="fw-bold">Mood Charts</MudText>
                             <MudText Typo="Typo.body2" Color="Color.Secondary" Class="opacity-75">Bar and pie views of mood distribution.</MudText>
+
                         </div>
                         <MudIcon Icon="@Icons.Material.Filled.PieChart" Color="Color.Primary" />
                     </div>
@@ -339,6 +340,50 @@
         border-radius: 16px;
         padding: 16px;
     }
+    .mood-bar-chart {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1.5rem;
+        align-items: end;
+        min-height: 220px;
+    }
+    .mood-bar-column {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    .mood-bar-track {
+        width: 100%;
+        max-width: 120px;
+        height: 180px;
+        border-radius: 18px;
+        background: rgba(var(--mud-palette-divider-rgb), 0.08);
+        display: flex;
+        align-items: flex-end;
+        padding: 8px;
+        box-shadow: inset 0 0 0 1px rgba(var(--mud-palette-divider-rgb), 0.08);
+    }
+    .mood-bar-fill {
+        width: 100%;
+        border-radius: 12px;
+        min-height: 8px;
+        transition: height 0.4s ease;
+    }
+    .mood-bar-fill.positive { background: linear-gradient(180deg, #7CC9B0 0%, #4FB68F 100%); }
+    .mood-bar-fill.neutral { background: linear-gradient(180deg, #A2B5F2 0%, #7E98E8 100%); }
+    .mood-bar-fill.negative { background: linear-gradient(180deg, #E8929F 0%, #D86A7A 100%); }
+
+    .mood-bar-label {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.2rem;
+        font-weight: 700;
+        color: var(--mud-palette-text-primary);
+    }
+    .mood-bar-label .label { font-size: 0.85rem; }
+    .mood-bar-label .value { font-size: 0.8rem; color: var(--mud-palette-text-secondary); }
     .pie-wrap {
         position: relative;
         width: 180px;

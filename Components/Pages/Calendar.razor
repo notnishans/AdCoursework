@@ -18,7 +18,7 @@
     <div class="d-flex align-center justify-space-between mb-8 animate-fade-in">
         <div>
             <MudText Typo="Typo.h3" Class="fw-bold primary-gradient-text">Memory Calendar</MudText>
-            <MudText Typo="Typo.h6" Color="Color.Secondary" Class="mt-1 opacity-75">Browse reflections by day and mood.</MudText>
+            <MudText Typo="Typo.h6" Color="Color.Primary" Class="mt-1 opacity-60">Browse reflections by day and mood.</MudText>
         </div>
         <div class="d-flex gap-2">
             <MudButton Variant="Variant.Outlined" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Today" OnClick="() => currentDate = DateTime.Today" Class="rounded-pill px-6">Jump to Today</MudButton>
@@ -35,7 +35,7 @@
                     <MudIconButton Icon="@Icons.Material.Filled.ArrowBackIosNew" Color="Color.Primary" OnClick="PreviousMonth" Class="nav-btn-modern" />
                     <div class="text-center px-4">
                         <MudText Typo="Typo.h3" Class="fw-extra-bold primary-gradient-text uppercase-tracking">@currentDate.ToString("MMMM")</MudText>
-                        <MudText Typo="Typo.h5" Color="Color.Secondary" Class="opacity-50">@currentDate.Year</MudText>
+                        <MudText Typo="Typo.h5" Color="Color.Primary" Class="opacity-50">@currentDate.Year</MudText>
                     </div>
                     <MudIconButton Icon="@Icons.Material.Filled.ArrowForwardIos" Color="Color.Primary" OnClick="NextMonth" Class="nav-btn-modern" />
                 </div>
@@ -186,9 +186,9 @@
     .secondary-text { color: var(--mud-palette-text-secondary); }
 
     .primary-gradient-text {
-        background: linear-gradient(135deg, #6B7FD1 0%, #86C5C2 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        color: var(--mud-palette-primary) !important;
+        background: none;
+        -webkit-text-fill-color: var(--mud-palette-primary);
     }
 
     .glass-panel {
@@ -197,11 +197,27 @@
         border: 1px solid rgba(var(--mud-palette-divider-rgb), 0.05) !important;
     }
 
+    .calendar-nav-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+    }
+
     .nav-btn-modern {
         background: rgba(var(--mud-palette-primary-rgb), 0.08) !important;
-        border-radius: 12px !important;
-        padding: 10px !important;
+        border-radius: 14px !important;
+        padding: 0 !important;
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         transition: all 0.2s;
+    }
+    .nav-btn-modern .mud-icon-root {
+        font-size: 20px;
     }
     .nav-btn-modern:hover {
         background: var(--mud-palette-primary) !important;

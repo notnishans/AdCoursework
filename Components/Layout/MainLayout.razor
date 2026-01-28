@@ -23,15 +23,10 @@
             <MudText Typo="Typo.h5" Class="title-gradient fw-extra-bold">JournalApp</MudText>
         </div>
         <MudSpacer />
-        @if (AuthState.IsAuthenticated)
-        {
-            <div class="user-pill d-flex align-center px-4 py-1 rounded-pill">
-                <MudAvatar Color="Color.Primary" Size="Size.Small" Class="mr-3 shadow-sm">
-                    @AuthState.GetCurrentUsername()?[0].ToString().ToUpper()
-                </MudAvatar>
-                <MudText Typo="Typo.body2" Class="fw-bold opacity-90">@AuthState.GetCurrentUsername()</MudText>
-            </div>
-        }
+        <MudIconButton Icon="@Icons.Material.Filled.Settings"
+                   Color="Color.Primary"
+                   Class="settings-button"
+                   OnClick='() => Navigation.NavigateTo("/settings")' />
     </MudAppBar>
     
     <MudDrawer @bind-Open="_drawerOpen" Elevation="0" ClipMode="DrawerClipMode.Always" Class="premium-drawer">
@@ -57,11 +52,13 @@
     }
 
     .title-gradient, .primary-gradient-text {
-        background: linear-gradient(135deg, #CDA1FF 0%, #7CC8B6 50%, #F4B49A 100%);
+        background: linear-gradient(135deg,
+            var(--mud-palette-primary) 0%,
+            var(--mud-palette-secondary) 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         letter-spacing: -0.04em;
-        filter: drop-shadow(0 0 1px rgba(255,255,255,0.1));
+        filter: drop-shadow(0 0 1px rgba(255,255,255,0.12));
     }
 
     .peace-text { color: #9C86E5 !important; }
@@ -69,9 +66,12 @@
     .fw-extra-bold { font-weight: 900 !important; }
     .fw-bold { font-weight: 700 !important; }
 
-    .user-pill {
-        background: rgba(156, 134, 229, 0.12);
-        border: 1px solid rgba(156, 134, 229, 0.2);
+    .settings-button {
+        background: rgba(var(--mud-palette-primary-rgb), 0.12);
+        border: 1px solid rgba(var(--mud-palette-primary-rgb), 0.2);
+        border-radius: 999px;
+        width: 40px;
+        height: 40px;
     }
 
     .premium-drawer {
@@ -82,12 +82,12 @@
     .logo-circle {
         width: 36px;
         height: 36px;
-        background: rgba(156, 134, 229, 0.12);
+        background: rgba(var(--mud-palette-primary-rgb), 0.12);
         border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 4px 10px -2px rgba(156, 134, 229, 0.3);
+        box-shadow: 0 6px 14px -6px rgba(var(--mud-palette-primary-rgb), 0.6);
     }
 
     .hover-rotate:hover { transform: rotate(90deg); }

@@ -18,7 +18,7 @@
 
     <div class="d-flex align-center justify-space-between mb-8 animate-fade-in">
         <div>
-            <MudText Typo="Typo.h3" Class="fw-bold primary-gradient-text">Welcome back, @AuthState.GetCurrentUsername()</MudText>
+            <MudText Typo="Typo.h3" Class="fw-bold peace-text">Account Overview for @AuthState.GetCurrentUsername()</MudText>
             <MudText Typo="Typo.h6" Class="secondary-text mt-1 opacity-75">A quiet overview of your recent reflections and progress.</MudText>
         </div>
         <MudButton Variant="Variant.Outlined" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" Size="Size.Medium" OnClick='(() => Navigation.NavigateTo("/create-entry"))' Class="new-entry-button">
@@ -85,7 +85,7 @@
 
         <MudGrid>
             <!-- Recent Entries -->
-            <MudItem xs="12" lg="8">
+            <MudItem xs="12" lg="12">
                 <div class="d-flex align-center justify-space-between mb-4 px-2">
                     <MudText Typo="Typo.h5" Class="fw-bold">Latest Entries</MudText>
                     @* <MudButton OnClick='(() => Navigation.NavigateTo("/entries"))' Variant="Variant.Text" Color="Color.Primary" EndIcon="@Icons.Material.Filled.ArrowForward" Class="rounded-pill">Open Library</MudButton> *@
@@ -159,6 +159,7 @@
     .opacity-75 { opacity: 0.75; }
     .secondary-text { color: var(--mud-palette-text-secondary); }
     .primary-text { color: var(--mud-palette-primary); }
+    .peace-text { color: var(--primary-color) !important; }
     .secondary-text-alt { color: var(--mud-palette-secondary); }
     .tertiary-text { color: var(--mud-palette-tertiary); }
     .success-text { color: #6BBF9E; }

@@ -31,22 +31,29 @@ namespace JournalApp.Components.Pages
         private string message = "";
         private bool isSuccess = false;
         private string _selectedTheme = "Dark";
-        private string selectedTheme 
-        { 
-            get => _selectedTheme; 
-            set 
-            { 
+        private string selectedTheme
+        {
+            get => _selectedTheme;
+            set
+            {
                 if (_selectedTheme != value)
                 {
                     _selectedTheme = value;
-                    OnThemePillClicked(value);
                 }
-            } 
+            }
         }
 
-        private async void OnThemePillClicked(string theme)
+        private bool IsDarkMode => selectedTheme == "Dark";
+
+        private async Task OnThemeToggle(bool isDark)
         {
-            await UpdateTheme(theme);
+            selectedTheme = isDark ? "Dark" : "Light";
+            await UpdateTheme(selectedTheme);
+        }
+
+        private async Task ToggleTheme()
+        {
+            await OnThemeToggle(!IsDarkMode);
         }
         
         // Export settings
