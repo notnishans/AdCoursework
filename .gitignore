@@ -1,32 +1,47 @@
-# .NET
+# .NET / MAUI
 bin/
 obj/
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+publish/
+
+# Visual Studio
+.vs/
 *.user
+*.userosscache
+*.sln.docstates
 *.suo
 *.cache
 *.log
 *.tmp
 
-# Visual Studio
-.vs/
+# Visual Studio Code
 .vscode/
-
-# MAUI
-*.apk
-*.aab
-*.ipa
-*.app
-
-# OS
-.DS_Store
-Thumbs.db
 
 # IDE
 .idea/
 *.swp
 *.swo
 
+# OS
+.DS_Store
+Thumbs.db
+
 # Build outputs
 *.dll
 *.exe
 *.pdb
+
+# MAUI / mobile
+*.apk
+*.aab
+*.ipa
+*.app
+AppPackages/
+BundleArtifacts/
